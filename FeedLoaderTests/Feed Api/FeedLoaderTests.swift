@@ -88,12 +88,35 @@ final class RemoteFeedLoaderTests: XCTestCase {
 
     }
 
+    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
+        let url = URL(string: "www.google.com")!
+        let client = HTTPClientSpy()
+        var sut: RemoteFeedLoader? = RemoteFeedLoader(client: client, url: url)
+
+        var capturedResult = [RemoteFeedLoader.Result]()
+        sut?.load(completion: {capturedResult.append($0)})
+
+        sut = nil
+
+        client.complete(withStatusCode: 200, data: makeItemItemsJson([]))
+
+        XCTAssertTrue(capturedResult.isEmpty)
+    }
+
     //MARK: Helpers
-    private func makeSUT(url: URL = URL(string: "www.google.com")! ) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(string: "www.google.com")!, file: StaticString = #filePath, line: UInt = #line ) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut =  RemoteFeedLoader(client: client, url: url)
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, client)
 
+    }
+
+    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "instance should have been deallocated, potential memory leak", file: file, line: line)
+        }
     }
 
     private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedItem, json: [String: Any]) {
