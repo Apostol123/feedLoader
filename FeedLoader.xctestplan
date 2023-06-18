@@ -1,0 +1,39 @@
+{
+  "configurations" : [
+    {
+      "id" : "AE8CED2D-7426-4159-9F4E-78926EBCEF56",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    },
+    {
+      "id" : "76EB9535-29D2-441F-BF91-35D4745A20F8",
+      "name" : "CI Test Configuration",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:FeedLoader.xcodeproj",
+        "identifier" : "A3EE1C022A31A025000AD9EE",
+        "name" : "FeedLoaderTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:FeedLoader.xcodeproj",
+        "identifier" : "A340D47F2A3E04A5009A7965",
+        "name" : "FeedLoaderApiEndToEndTests"
+      }
+    }
+  ],
+  "version" : 1
+}
