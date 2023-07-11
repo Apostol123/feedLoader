@@ -4,14 +4,14 @@
       "id" : "AE8CED2D-7426-4159-9F4E-78926EBCEF56",
       "name" : "Test Scheme Action",
       "options" : {
-
+        "threadSanitizerEnabled" : false
       }
     },
     {
       "id" : "76EB9535-29D2-441F-BF91-35D4745A20F8",
       "name" : "CI Test Configuration",
       "options" : {
-
+        "threadSanitizerEnabled" : true
       }
     }
   ],
