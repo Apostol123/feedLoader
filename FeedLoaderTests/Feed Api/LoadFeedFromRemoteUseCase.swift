@@ -7,7 +7,7 @@
 
 import XCTest
 import FeedLoader
-final class RemoteFeedLoaderTests: XCTestCase {
+final class LoadFeedFromRemoteUseCase: XCTestCase {
 
     func test_load_deliversError_onClientError() {
         let (sut, client) = makeSUT()
