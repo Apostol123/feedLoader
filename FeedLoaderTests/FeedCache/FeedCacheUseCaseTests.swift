@@ -20,7 +20,7 @@ class LocalFeedLoader {
     func save(_ items: [FeedItem], completion: @escaping (Error?) -> Void) {
         store.deleteCachedFeed {[unowned self] error in
             if error == nil {
-                self.store.insert(items, timeStamp: self.currentDate())
+                self.store.insert(items, timeStamp: self.currentDate(), completion: completion)
             } else {
                 completion(error)
             }
@@ -30,7 +30,9 @@ class LocalFeedLoader {
 
 class FeedStore {
     typealias DeletionCompletion = (Error?) -> Void
+    typealias InsertionCompletion = (Error?) -> Void
     private var deletionCompletion = [DeletionCompletion]()
+    private var insertionCompletions = [InsertionCompletion]()
 
     enum RecivedMessages: Equatable {
         case deletedCachedFeed
@@ -52,8 +54,13 @@ class FeedStore {
         deletionCompletion[index](nil)
     }
 
-    func insert(_ items: [FeedItem], timeStamp: Date) {
+    func insert(_ items: [FeedItem], timeStamp: Date, completion: @escaping InsertionCompletion) {
+        insertionCompletions.append(completion)
         recivedMessages.append(.insert(items, timeStamp))
+    }
+
+    func completeInsertion(with error: Error, at index: Int = 0) {
+        insertionCompletions[index](error)
     }
 }
 
@@ -107,6 +114,23 @@ final class FeedCacheUseCaseTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
 
         XCTAssertEqual(recivedError as NSError?, deletionError as NSError)
+    }
+
+    func test_save_failsOnInsertionError() {
+        let (sut, store) = makeSUT()
+        let items = [uniqueItem(), uniqueItem()]
+        let insertionError = anyError()
+        let exp = expectation(description: "wait for expectation")
+        var recivedError: Error?
+        sut.save(items) { error in
+            recivedError = error
+            exp.fulfill()
+        }
+        store.completeDeletionSuccessfully()
+        store.completeInsertion(with: insertionError)
+        wait(for: [exp], timeout: 1.0)
+
+        XCTAssertEqual(recivedError as NSError?, insertionError as NSError)
     }
 
 
