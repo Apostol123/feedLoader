@@ -7,17 +7,97 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FFAC3BF0-72D4-45ED-B601-EE74303A83C0"
+            uuid = "7525C372-79A7-4BF9-9C5B-FEAB8C5D09CE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FeedAPI/RemoteFeedLoader.swift"
+            filePath = "Feed Cache/LocalFeedLoader.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "load(completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7525C372-79A7-4BF9-9C5B-FEAB8C5D09CE - a2cbb498f32d63c8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (FeedLoader.RetrieveCacheFeedResult) -&gt; () in FeedLoader.LocalFeedLoader.load(completion: (FeedLoader.LoadFeedResult) -&gt; ()) -&gt; ()"
+                  moduleName = "FeedLoader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexandru.apostol/Documents/apostol/essentialDeveloper/FeedLoader/Feed%20Cache/LocalFeedLoader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "620">
+               </Location>
+               <Location
+                  uuid = "7525C372-79A7-4BF9-9C5B-FEAB8C5D09CE - a2cbb498f32d63c8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (FeedLoader.RetrieveCacheFeedResult) -&gt; () in FeedLoader.LocalFeedLoader.load(completion: (FeedLoader.LoadFeedResult) -&gt; ()) -&gt; ()"
+                  moduleName = "FeedLoader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexandru.apostol/Documents/apostol/essentialDeveloper/FeedLoader/Feed%20Cache/LocalFeedLoader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "816">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "30F1E90C-3F78-46A2-B774-714D3339F60D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feed Cache/LocalFeedLoader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "load(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "30F1E90C-3F78-46A2-B774-714D3339F60D - a2cbb498f32d63ab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (FeedLoader.RetrieveCacheFeedResult) -&gt; () in FeedLoader.LocalFeedLoader.load(completion: (FeedLoader.LoadFeedResult) -&gt; ()) -&gt; ()"
+                  moduleName = "FeedLoader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexandru.apostol/Documents/apostol/essentialDeveloper/FeedLoader/Feed%20Cache/LocalFeedLoader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "848">
+               </Location>
+               <Location
+                  uuid = "30F1E90C-3F78-46A2-B774-714D3339F60D - a2cbb498f32d63ab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (FeedLoader.RetrieveCacheFeedResult) -&gt; () in FeedLoader.LocalFeedLoader.load(completion: (FeedLoader.LoadFeedResult) -&gt; ()) -&gt; ()"
+                  moduleName = "FeedLoader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexandru.apostol/Documents/apostol/essentialDeveloper/FeedLoader/Feed%20Cache/LocalFeedLoader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "1104">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
