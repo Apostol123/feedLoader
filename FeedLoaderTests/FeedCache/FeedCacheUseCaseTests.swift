@@ -101,20 +101,6 @@ final class FeedCacheUseCaseTests: XCTestCase {
         return (sut, store)
     }
 
-    private func uniqueImage() -> FeedImage {
-        FeedImage(id: UUID(), url: URL(string: "www.google.com")!)
-    }
-
-    private func uniqueImageFeed() -> (models: [FeedImage], local: [LocalFeedImage]) {
-        let models = [uniqueImage(), uniqueImage()]
-        let localFeedItems = models.map({LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url)})
-        return (models, localFeedItems)
-    }
-
-    private func anyError() -> Error {
-        NSError(domain: "any error", code: 1)
-    }
-
     private func expect(_ sut: LocalFeedLoader, toCompleteWithError expectedError: NSError?, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "wait for expectation")
         var recivedError: Error?
