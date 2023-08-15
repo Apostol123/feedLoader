@@ -33,6 +33,7 @@
 		A3EE1C162A31A057000AD9EE /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE1C142A31A057000AD9EE /* FeedLoader.swift */; };
 		A3F84EAC2A5E8A36006E92C8 /* FeedCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F84EAB2A5E8A36006E92C8 /* FeedCacheUseCaseTests.swift */; };
 		CB0816A82A87E50600EB5810 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0816A72A87E50600EB5810 /* FeedCachePolicy.swift */; };
+		CB7F47472A8B701600557B4B /* CodableFeedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F47462A8B701600557B4B /* CodableFeedStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		A3EE1C142A31A057000AD9EE /* FeedLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedLoader.swift; sourceTree = "<group>"; };
 		A3F84EAB2A5E8A36006E92C8 /* FeedCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		CB0816A72A87E50600EB5810 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
+		CB7F47462A8B701600557B4B /* CodableFeedStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 				A3F84EAB2A5E8A36006E92C8 /* FeedCacheUseCaseTests.swift */,
 				A323C94D2A6D64FE00FA7B2A /* LoadFeedFromCacheUseCaseTests.swift */,
 				A36D08A72A85727300EDE0CA /* ValidateFeedCacheUseCaseTest.swift */,
+				CB7F47462A8B701600557B4B /* CodableFeedStoreTests.swift */,
 			);
 			path = FeedCache;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				A383BFC92A3C327B006A422C /* XCTTestCase+memoryLeakHelper.swift in Sources */,
 				A3EE1C092A31A025000AD9EE /* LoadFeedFromRemoteUseCase.swift in Sources */,
 				A3A18C392A70169000134CE1 /* FeedStoreSpy.swift in Sources */,
+				CB7F47472A8B701600557B4B /* CodableFeedStoreTests.swift in Sources */,
 				A3F84EAC2A5E8A36006E92C8 /* FeedCacheUseCaseTests.swift in Sources */,
 				A36D08AA2A857C2700EDE0CA /* FeedCacheTestHelper.swift in Sources */,
 				A323C94E2A6D64FE00FA7B2A /* LoadFeedFromCacheUseCaseTests.swift in Sources */,
