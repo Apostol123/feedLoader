@@ -65,13 +65,13 @@ final class CodableFeedStoreTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let storeURL = storeURL()
+        let storeURL = testSpecificStoreURL()
         try? FileManager.default.removeItem(at: storeURL)
     }
     
     override func tearDown() {
         super.tearDown()
-        let storeURL = storeURL()
+        let storeURL = testSpecificStoreURL()
         try? FileManager.default.removeItem(at: storeURL)
     }
 
@@ -139,13 +139,13 @@ final class CodableFeedStoreTests: XCTestCase {
     
     //MARK: Helpers
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CodableFeedStore {
-        let storeURL = storeURL()
+        let storeURL = testSpecificStoreURL()
         let sut = CodableFeedStore(storeURL: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
     
-    private func storeURL() -> URL {
-        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appending(path: "imagefeed.store")
+    private func testSpecificStoreURL() -> URL {
+        return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appending(path: "\(type(of: self)).store")
     }
 }
