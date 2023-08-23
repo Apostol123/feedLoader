@@ -21,6 +21,9 @@
   "testTargets" : [
     {
       "parallelizable" : true,
+      "skippedTests" : [
+        "CodableFeedStoreTests\/test_delete_deliversErrorOnDeletionError()"
+      ],
       "target" : {
         "containerPath" : "container:FeedLoader.xcodeproj",
         "identifier" : "A3EE1C022A31A025000AD9EE",
