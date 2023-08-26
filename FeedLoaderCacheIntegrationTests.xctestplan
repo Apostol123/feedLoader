@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "EBC43700-E7F9-4485-A6C4-B03A12DD9BC7",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:FeedLoader.xcodeproj",
+          "identifier" : "A3EE1BF82A31A025000AD9EE",
+          "name" : "FeedLoader"
+        }
+      ]
+    },
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:FeedLoader.xcodeproj",
+        "identifier" : "CB3B2DB62A99F14700CA52C7",
+        "name" : "FeedLoaderCacheIntegrationTests"
+      }
+    }
+  ],
+  "version" : 1
+}
