@@ -31,13 +31,7 @@ final class FeedLoaderCacheIntegrationTests: XCTestCase {
         let sutToPerformLoad =  makeSUT()
         let feed = uniqueImageFeed().models
         
-        let saveExp = expectation(description: "wait for save completion")
-        sutToPerfomeSave.save(feed) { saveError in
-            XCTAssertNil(saveError, "Expected to save feed successfully")
-            saveExp.fulfill()
-        }
-        wait(for: [saveExp], timeout: 1.0)
-        
+        save(feed, with: sutToPerfomeSave)
         expect(sutToPerformLoad, toLoad: feed)
     }
     
@@ -48,20 +42,8 @@ final class FeedLoaderCacheIntegrationTests: XCTestCase {
         let firstFeed = uniqueImageFeed().models
         let latestFeed = uniqueImageFeed().models
         
-        let saveExp1 = expectation(description: "Wait for save completion")
-        sutToPerfomFirstSave.save(firstFeed) { saveError in
-            XCTAssertNil(saveError, "Expected to save feed successfully")
-            saveExp1.fulfill()
-        }
-        wait(for: [saveExp1], timeout: 1.0)
-        
-        let saveExp2 = expectation(description: "Wait for save completion")
-        sutToPerformLastSave.save(latestFeed) { saveError in
-            XCTAssertNil(saveError, "Expected to savve feed successfully")
-            saveExp2.fulfill()
-        }
-        wait(for: [saveExp2], timeout: 1.0)
-        
+        save(firstFeed, with: sutToPerfomFirstSave)
+        save(latestFeed, with: sutToPerformLastSave)
         expect(sutToPerformLoad, toLoad: latestFeed)
     }
 
@@ -91,6 +73,15 @@ final class FeedLoaderCacheIntegrationTests: XCTestCase {
 
         }
         wait(for: [exp], timeout: 1.0)
+    }
+    
+    private func save(_ feed: [FeedImage], with sut: LocalFeedLoader) {
+        let saveExp = expectation(description: "wait for save completion")
+        sut.save(feed) { saveError in
+            XCTAssertNil(saveError, "Expected to save feed successfully")
+            saveExp.fulfill()
+        }
+        wait(for: [saveExp], timeout: 1.0)
     }
 
     private func testSpecificStoreURL() -> URL {
