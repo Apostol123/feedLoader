@@ -17,13 +17,12 @@ public final class CoreDataFeedStore: FeedStore {
         }
     
     public func retrieve(completion: @escaping RetrievalCompletion) {
-        let context = self.context
         perform { context in
             do {
                 if let cache = try ManagedCache.find(in: context) {
-                    completion(.found(feed: cache.localFeed, timestamp: cache.timestamp))
+                    completion(.success(.found(feed: cache.localFeed, timestamp: cache.timestamp)))
                 } else {
-                    completion(.empty)
+                    completion(.success(.empty))
                 }
             } catch {
                 completion(.failure(error))
@@ -32,7 +31,6 @@ public final class CoreDataFeedStore: FeedStore {
     }
     
     public func insert(_ feed: [LocalFeedImage], timeStamp timestamp: Date, completion: @escaping InsertionCompletion) {
-        let context = self.context
         perform { context in
             do {
                 let managedCache = try ManagedCache.newUniqueInstance(in: context)
@@ -47,7 +45,6 @@ public final class CoreDataFeedStore: FeedStore {
     }
     
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-        let context = self.context
         perform { context in
             do {
                 try ManagedCache.find(in: context).map(context.delete).map(context.save)
