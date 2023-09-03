@@ -104,8 +104,14 @@ final class FeedCacheUseCaseTests: XCTestCase {
     private func expect(_ sut: LocalFeedLoader, toCompleteWithError expectedError: NSError?, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "wait for expectation")
         var recivedError: Error?
-        sut.save([uniqueImage()]) { error in
-            recivedError = error
+        sut.save([uniqueImage()]) { result in
+            switch result {
+            case let .failure(error):
+                recivedError = error
+            case .success:
+                break
+            }
+            
             exp.fulfill()
         }
         action()
