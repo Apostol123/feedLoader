@@ -12,6 +12,8 @@
 		CB4A99662AA5A01B0079FAFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB4A99642AA5A01B0079FAFD /* Main.storyboard */; };
 		CB4A99682AA5A01D0079FAFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB4A99672AA5A01D0079FAFD /* Assets.xcassets */; };
 		CB4A996B2AA5A01D0079FAFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB4A99692AA5A01D0079FAFD /* LaunchScreen.storyboard */; };
+		CB4A99732AA5A7880079FAFD /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4A99722AA5A7880079FAFD /* FeedViewController.swift */; };
+		CBDD50232AA6F012000ACB4F /* FeedImageViewModel+PrototypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDD50222AA6F012000ACB4F /* FeedImageViewModel+PrototypeData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		CB4A99672AA5A01D0079FAFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB4A996A2AA5A01D0079FAFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB4A996C2AA5A01D0079FAFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB4A99722AA5A7880079FAFD /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		CBDD50222AA6F012000ACB4F /* FeedImageViewModel+PrototypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedImageViewModel+PrototypeData.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				CB4A99672AA5A01D0079FAFD /* Assets.xcassets */,
 				CB4A99692AA5A01D0079FAFD /* LaunchScreen.storyboard */,
 				CB4A996C2AA5A01D0079FAFD /* Info.plist */,
+				CB4A99722AA5A7880079FAFD /* FeedViewController.swift */,
+				CBDD50222AA6F012000ACB4F /* FeedImageViewModel+PrototypeData.swift */,
 			);
 			path = Prototype;
 			sourceTree = "<group>";
@@ -136,7 +142,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB4A995F2AA5A01B0079FAFD /* AppDelegate.swift in Sources */,
+				CB4A99732AA5A7880079FAFD /* FeedViewController.swift in Sources */,
 				CB4A99612AA5A01B0079FAFD /* SceneDelegate.swift in Sources */,
+				CBDD50232AA6F012000ACB4F /* FeedImageViewModel+PrototypeData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
