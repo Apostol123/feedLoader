@@ -50,6 +50,16 @@
                reference = "container:FeedLoaderCacheIntegrationTests.xctestplan">
             </TestPlanReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <TestPlanReference
+               reference = "container:EssentialFeediOS.xctestplan">
+            </TestPlanReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -64,6 +74,9 @@
          </TestPlanReference>
          <TestPlanReference
             reference = "container:FeedLoaderCacheIntegrationTests.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:EssentialFeediOS.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>
