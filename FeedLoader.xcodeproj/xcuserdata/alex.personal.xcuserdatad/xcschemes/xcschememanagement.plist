@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>EssentialFeediOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>FeedLoader.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +38,16 @@
 			<true/>
 		</dict>
 		<key>CB3B2DB62A99F14700CA52C7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB80F5BA2AA9981A0059453D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB80F5C12AA9981A0059453D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
