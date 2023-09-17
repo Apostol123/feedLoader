@@ -13,7 +13,14 @@ class FeedImageCell: UITableViewCell {
     public let descriptionLabel = UILabel()
     public let feedImageContainer = UIView()
     public let feedImageView = UIImageView()
-    public let feedImageRetryButton = UIButton()
+    
+    private (set) public lazy var feedImageRetryButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(retryButtonWasTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    var onRetry: (() -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +31,11 @@ class FeedImageCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @objc
+    private func retryButtonWasTapped() {
+        onRetry?()
     }
 
 }
