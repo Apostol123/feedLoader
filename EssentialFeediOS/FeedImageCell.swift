@@ -12,6 +12,7 @@ class FeedImageCell: UITableViewCell {
     public let locationLabel = UILabel()
     public let descriptionLabel = UILabel()
     public let feedImageContainer = UIView()
+    public let feedImageView = UIImageView()
 
     override func awakeFromNib() {
         super.awakeFromNib()
