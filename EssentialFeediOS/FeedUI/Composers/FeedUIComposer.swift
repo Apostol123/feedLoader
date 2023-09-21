@@ -11,10 +11,11 @@ import FeedLoader
 public final class FeedUIComposer {
     private init() {}
     
-    public static func feedComposedWith(loader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController{
-        let refreshController  = FeedRefreshViewController(loader: loader)
+    public static func feedComposedWith(loader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
+        let feedViewModel = FeedViewModel(loader: loader)
+        let refreshController  = FeedRefreshViewController(viewModel: feedViewModel)
         let feedController = FeedViewController(refreshController: refreshController)
-        refreshController.onRefresh = adaptFeedToCellControllers(forwardingTo: feedController, loader: imageLoader)
+        feedViewModel.onFeedLoad = adaptFeedToCellControllers(forwardingTo: feedController, loader: imageLoader)
         
         return feedController
     }
