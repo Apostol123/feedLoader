@@ -8,21 +8,61 @@
 import UIKit
 import FeedLoader
 
-final class FeedImageCellController {
-    private var tasks: FeedImageDataLoaderTask?
-    private let model: FeedImage
+final class FeedImageCellModel {
     private let imageLoader: FeedImageDataLoader
+    private let model: FeedImage
+    private var tasks: FeedImageDataLoaderTask?
     
-    init(model: FeedImage, imageLoader: FeedImageDataLoader) {
+    init(loader: FeedImageDataLoader, model: FeedImage) {
+        self.imageLoader = loader
         self.model = model
-        self.imageLoader = imageLoader
+    }
+    
+    var location: String? {
+        return model.location
+    }
+    
+    var description: String? {
+        model.description
+    }
+    
+    var imageUrl: URL {
+        return model.url
+    }
+    
+    func preload() {
+        tasks = imageLoader.loadImageData(from: model.url, completion: {_ in })
+    }
+    
+    func cancelLoad() {
+        tasks?.cancel()
+    }
+    
+    func loadImage(completion: @escaping (FeedImageDataLoader.Result) -> Void) {
+        self.tasks = imageLoader.loadImageData(from: model.url) { result in
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+}
+
+final class FeedImageCellController {
+    let cellModel: FeedImageCellModel
+    
+    init(cellModel: FeedImageCellModel) {
+        self.cellModel = cellModel
     }
     
     func view() -> UITableViewCell {
         let cell = FeedImageCell()
-        cell.locationContainer.isHidden = (model.location == nil)
-        cell.locationLabel.text = model.location
-        cell.descriptionLabel.text = model.description
+        cell.locationContainer.isHidden = (cellModel.location == nil)
+        cell.locationLabel.text = cellModel.location
+        cell.descriptionLabel.text = cellModel.description
         cell.feedImageView.image = nil
         cell.feedImageRetryButton.isHidden = true
         cell.feedImageContainer.startShimmering()
@@ -30,7 +70,7 @@ final class FeedImageCellController {
         let loadImage = { [weak self, weak cell] in
             guard let self = self else {return}
             
-            self.tasks = imageLoader.loadImageData(from: model.url) { [weak cell] result in
+            cellModel.loadImage { [weak cell] result in
                 let data = try? result.get()
                 let image = data.map(UIImage.init) ?? nil
                 cell?.feedImageView.image = image
@@ -47,11 +87,11 @@ final class FeedImageCellController {
     }
     
     func preload() {
-        tasks = imageLoader.loadImageData(from: model.url, completion: {_ in })
+        cellModel.preload()
     }
     
     func cancelLoad() {
-        tasks?.cancel()
+        cellModel.cancelLoad()
     }
 }
 
