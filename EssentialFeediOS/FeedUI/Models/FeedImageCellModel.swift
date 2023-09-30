@@ -8,45 +8,64 @@
 import Foundation
 import FeedLoader
 
-final class FeedImageCellModel {
-    private let imageLoader: FeedImageDataLoader
-    private let model: FeedImage
-    private var tasks: FeedImageDataLoaderTask?
-    
-    init(loader: FeedImageDataLoader, model: FeedImage) {
-        self.imageLoader = loader
-        self.model = model
+protocol FeedImageView {
+    associatedtype Image
+
+    func display(_ model: FeedImageViewModel<Image>)
+}
+
+final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == Image {
+    private let view: View
+    private let imageTransformer: (Data) -> Image?
+
+    internal init(view: View, imageTransformer: @escaping (Data) -> Image?) {
+        self.view = view
+        self.imageTransformer = imageTransformer
     }
-    
-    var location: String? {
-        return model.location
+
+    func didStartLoadingImageData(for model: FeedImage) {
+        view.display(FeedImageViewModel(
+            description: model.description,
+            location: model.location,
+            image: nil,
+            isLoading: true,
+            shouldRetry: false))
     }
-    
-    var description: String? {
-        model.description
-    }
-    
-    var imageUrl: URL {
-        return model.url
-    }
-    
-    func preload() {
-        tasks = imageLoader.loadImageData(from: model.url, completion: {_ in })
-    }
-    
-    func cancelLoad() {
-        tasks?.cancel()
-    }
-    
-    func loadImage(completion: @escaping (FeedImageDataLoader.Result) -> Void) {
-        self.tasks = imageLoader.loadImageData(from: model.url) { result in
-            switch result {
-            case .success(let data):
-                completion(.success(data))
-                
-            case .failure(let error):
-                completion(.failure(error))
-            }
+
+    private struct InvalidImageDataError: Error {}
+
+    func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
+        guard let image = imageTransformer(data) else {
+            return didFinishLoadingImageData(with: InvalidImageDataError(), for: model)
         }
+
+        view.display(FeedImageViewModel(
+            description: model.description,
+            location: model.location,
+            image: image,
+            isLoading: false,
+            shouldRetry: false))
+    }
+
+    func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
+        view.display(FeedImageViewModel(
+            description: model.description,
+            location: model.location,
+            image: nil,
+            isLoading: false,
+            shouldRetry: true))
+    }
+}
+
+
+struct FeedImageViewModel<Image> {
+    let description: String?
+    let location: String?
+    let image: Image?
+    let isLoading: Bool
+    let shouldRetry: Bool
+    
+    var hasLocation: Bool {
+        return location != nil
     }
 }

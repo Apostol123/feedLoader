@@ -7,47 +7,40 @@
 
 import UIKit
 
-final class FeedImageCellController {
-    let cellModel: FeedImageCellModel
+protocol FeedImageCellControllerDelegate {
+    func didRequestImage()
+    func didCancelImageRequest()
+}
+
+final class FeedImageCellController: FeedImageView {
+    private let delegate: FeedImageCellControllerDelegate
+    private lazy var cell = FeedImageCell()
     
-    init(cellModel: FeedImageCellModel) {
-        self.cellModel = cellModel
-    }
+    init(delegate: FeedImageCellControllerDelegate) {
+            self.delegate = delegate
+        }
     
     func view() -> UITableViewCell {
-        let cell = FeedImageCell()
-        cell.locationContainer.isHidden = (cellModel.location == nil)
-        cell.locationLabel.text = cellModel.location
-        cell.descriptionLabel.text = cellModel.description
-        cell.feedImageView.image = nil
-        cell.feedImageRetryButton.isHidden = true
-        cell.feedImageContainer.startShimmering()
-        
-        let loadImage = { [weak self, weak cell] in
-            guard let self = self else {return}
-            
-            cellModel.loadImage { [weak cell] result in
-                let data = try? result.get()
-                let image = data.map(UIImage.init) ?? nil
-                cell?.feedImageView.image = image
-                cell?.feedImageRetryButton.isHidden = (image != nil)
-                cell?.feedImageContainer.stopShimmering()
-            }
-        }
-        
-        loadImage()
-        
-        cell.onRetry = loadImage
-        
+        delegate.didRequestImage()
         return cell
     }
     
     func preload() {
-        cellModel.preload()
+        delegate.didRequestImage()
     }
     
     func cancelLoad() {
-        cellModel.cancelLoad()
+        delegate.didCancelImageRequest()
+    }
+    
+    func display(_ viewModel: FeedImageViewModel<UIImage>) {
+        cell.locationContainer.isHidden = !viewModel.hasLocation
+        cell.locationLabel.text = viewModel.location
+        cell.descriptionLabel.text = viewModel.description
+        cell.feedImageView.image = viewModel.image
+        cell.feedImageContainer.isShimmering = viewModel.isLoading
+        cell.feedImageRetryButton.isHidden = !viewModel.shouldRetry
+        cell.onRetry = delegate.didRequestImage
     }
 }
 
