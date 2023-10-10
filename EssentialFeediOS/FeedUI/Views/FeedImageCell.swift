@@ -8,17 +8,12 @@
 import UIKit
 
 class FeedImageCell: UITableViewCell {
-    public let locationContainer = UIView()
-    public let locationLabel = UILabel()
-    public let descriptionLabel = UILabel()
-    public let feedImageContainer = UIView()
-    public let feedImageView = UIImageView()
-    
-    private (set) public lazy var feedImageRetryButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(retryButtonWasTapped), for: .touchUpInside)
-        return button
-    }()
+    @IBOutlet private(set) public var locationContainer: UIView!
+    @IBOutlet private(set) public var  locationLabel: UILabel!
+    @IBOutlet private(set) public var  descriptionLabel: UILabel!
+    @IBOutlet private(set) public var  feedImageContainer: UIView!
+    @IBOutlet private(set) public var  feedImageView: UIImageView!
+    @IBOutlet private(set) public var  feedImageRetryButton: UIButton!
     
     var onRetry: (() -> Void)?
 
@@ -33,9 +28,8 @@ class FeedImageCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @objc
+    @IBAction
     private func retryButtonWasTapped() {
         onRetry?()
     }
-
 }
