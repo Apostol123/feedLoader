@@ -177,6 +177,7 @@
 		CBCD68242AD51B8C00710B05 /* UIImageView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Animations.swift"; sourceTree = "<group>"; };
 		CBCD68292AD66F8900710B05 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Feed.strings; sourceTree = "<group>"; };
 		CBCD682B2AD66FC500710B05 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Feed.strings"; sourceTree = "<group>"; };
+		CBCD682C2AD6700D00710B05 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Feed.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -656,6 +657,7 @@
 				en,
 				Base,
 				"pt-BR",
+				el,
 			);
 			mainGroup = A3EE1BEF2A31A025000AD9EE;
 			productRefGroup = A3EE1BFA2A31A025000AD9EE /* Products */;
@@ -847,6 +849,7 @@
 			children = (
 				CBCD68292AD66F8900710B05 /* en */,
 				CBCD682B2AD66FC500710B05 /* pt-BR */,
+				CBCD682C2AD6700D00710B05 /* el */,
 			);
 			name = Feed.strings;
 			sourceTree = "<group>";
