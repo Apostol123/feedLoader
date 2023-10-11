@@ -19,6 +19,7 @@ public final class FeedUIComposer {
         
         let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
         feedController.delegate = presentationAdapter
+        feedController.title = FeedPresenter.title
         
         let feedPresenter = FeedPresenter(feedLoadingView: WeakRefVirtualProxy(feedController), feedView: FeedViewAdapter(loader: imageLoader, controller: feedController))
         
