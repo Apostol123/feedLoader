@@ -14,8 +14,8 @@
             filePath = "EssentialFeediOSTests/FeedViewControllerTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "test_feedImageView_cancelsImageURLPreloadingWhenNearVisibleAnymore()"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "EssentialFeediOSTests/FeedViewControllerTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "test_feedImageView_cancelsImageURLPreloadingWhenNearVisibleAnymore()"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "EssentialFeediOSTests/FeedViewControllerTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
             landmarkName = "test_feedImageView_preloadsImageURLWhenNearVisible()"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "EssentialFeediOSTests/FeedViewControllerTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "test_feedImageView_preloadsImageURLWhenNearVisible()"
             landmarkType = "7">
          </BreakpointContent>
