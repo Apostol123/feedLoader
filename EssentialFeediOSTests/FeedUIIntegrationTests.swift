@@ -11,7 +11,7 @@ import FeedLoader
 @testable import EssentialFeediOS
 
 
-final class FeedViewControllerTests: XCTestCase {
+final class FeedUIIntegrationTests: XCTestCase {
     
     func test_feedView_hasTitle() {
         let (sut, _) = makeSUT()
