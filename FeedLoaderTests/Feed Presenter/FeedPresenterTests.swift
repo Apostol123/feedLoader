@@ -12,6 +12,10 @@ final class FeedPresenter {
     init(view: Any) {
         
     }
+    
+    func feedDidStarLoadingFeed() {
+      
+    }
 }
 
 final class FeedPresenterTests: XCTestCase {
@@ -20,6 +24,10 @@ final class FeedPresenterTests: XCTestCase {
         let (_, view) = makeSUT()
         
         XCTAssertTrue(view.messages.isEmpty, "Expected no view messages")
+    }
+    
+    func test_didStartLoadingFeed_displaysNoErrorMessages() {
+        
     }
     
     //MARK: - Helpers
@@ -33,6 +41,8 @@ final class FeedPresenterTests: XCTestCase {
     }
     
     private class ViewSpy {
+        
+        
         let messages = [Any]()
     }
 

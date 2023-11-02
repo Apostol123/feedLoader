@@ -56,16 +56,3 @@ final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == I
             shouldRetry: true))
     }
 }
-
-
-struct FeedImageViewModel<Image> {
-    let description: String?
-    let location: String?
-    let image: Image?
-    let isLoading: Bool
-    let shouldRetry: Bool
-    
-    var hasLocation: Bool {
-        return location != nil
-    }
-}

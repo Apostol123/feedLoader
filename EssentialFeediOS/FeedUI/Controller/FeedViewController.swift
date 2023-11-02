@@ -12,7 +12,7 @@ protocol FeedViewControllerDelegate {
 }
 
 
-public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedLoadingView {
+public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedLoadingView, FeedErrorView {
     var delegate: FeedViewControllerDelegate?
     
     var tableModel: [FeedImageCellController] = [] {
@@ -31,6 +31,12 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
             refreshControl?.beginRefreshing()
         } else {
             refreshControl?.endRefreshing()
+        }
+    }
+    
+    func display(_ viewModel: FeedErrorViewModel) {
+        if viewModel.message != nil {
+            
         }
     }
     
