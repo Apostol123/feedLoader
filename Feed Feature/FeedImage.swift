@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FeedImage: Equatable {
+public struct FeedImage: Hashable {
     public init(id: UUID, description: String? = nil, location: String? = nil, url: URL) {
         self.id = id
         self.description = description
