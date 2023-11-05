@@ -67,7 +67,6 @@
 		CBAEE0CE2AF6481E0007EBA7 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBAEE0C72AF643100007EBA7 /* Feed.strings */; };
 		CBCD68232AD51A4C00710B05 /* UITableView+Dequeueing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCD68222AD51A4C00710B05 /* UITableView+Dequeueing.swift */; };
 		CBCD68252AD51B8C00710B05 /* UIImageView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCD68242AD51B8C00710B05 /* UIImageView+Animations.swift */; };
-		CBCD68282AD66F8900710B05 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBCD682A2AD66F8900710B05 /* Feed.strings */; };
 		CBCD682E2AD6709100710B05 /* FeedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCD682D2AD6709100710B05 /* FeedLocalizationTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -186,9 +185,6 @@
 		CBAEE0CB2AF646BA0007EBA7 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		CBCD68222AD51A4C00710B05 /* UITableView+Dequeueing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Dequeueing.swift"; sourceTree = "<group>"; };
 		CBCD68242AD51B8C00710B05 /* UIImageView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Animations.swift"; sourceTree = "<group>"; };
-		CBCD68292AD66F8900710B05 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Feed.strings; sourceTree = "<group>"; };
-		CBCD682B2AD66FC500710B05 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Feed.strings"; sourceTree = "<group>"; };
-		CBCD682C2AD6700D00710B05 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Feed.strings; sourceTree = "<group>"; };
 		CBCD682D2AD6709100710B05 /* FeedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLocalizationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -384,7 +380,6 @@
 				CBAEE0BF2AF377190007EBA7 /* FeedImageViewModel.swift */,
 				CB2A2FA42AC6924C00C50D87 /* FeedPresenter.swift */,
 				CB2A2FA62ACA88AF00C50D87 /* FeedStoryboard.storyboard */,
-				CBCD682A2AD66F8900710B05 /* Feed.strings */,
 			);
 			path = FeedPresentation;
 			sourceTree = "<group>";
@@ -735,7 +730,6 @@
 			files = (
 				CB2A2FA92ACA88FF00C50D87 /* FeedAssets.xcassets in Resources */,
 				CB2A2FA72ACA88AF00C50D87 /* FeedStoryboard.storyboard in Resources */,
-				CBCD68282AD66F8900710B05 /* Feed.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,16 +874,6 @@
 				CBAEE0C62AF643100007EBA7 /* en */,
 				CBAEE0C82AF643120007EBA7 /* el */,
 				CBAEE0C92AF643130007EBA7 /* pt-BR */,
-			);
-			name = Feed.strings;
-			sourceTree = "<group>";
-		};
-		CBCD682A2AD66F8900710B05 /* Feed.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CBCD68292AD66F8900710B05 /* en */,
-				CBCD682B2AD66FC500710B05 /* pt-BR */,
-				CBCD682C2AD6700D00710B05 /* el */,
 			);
 			name = Feed.strings;
 			sourceTree = "<group>";

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FeedLoader
 
 protocol FeedRefereshViewControllerDelegate {
     func didRequestFeedRefresh()
