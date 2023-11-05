@@ -66,6 +66,9 @@
 		CBAEE0CD2AF647960007EBA7 /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE0CB2AF646BA0007EBA7 /* FeedPresenter.swift */; };
 		CBAEE0CE2AF6481E0007EBA7 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBAEE0C72AF643100007EBA7 /* Feed.strings */; };
 		CBAEE0D22AF7B6A40007EBA7 /* URLProtocolStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE0D12AF7B6A40007EBA7 /* URLProtocolStub.swift */; };
+		CBAEE0D42AF7B7390007EBA7 /* HTTPURLResponse+StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE0D32AF7B7390007EBA7 /* HTTPURLResponse+StatusCode.swift */; };
+		CBAEE0D52AF7B7D80007EBA7 /* HTTPURLResponse+StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE0D32AF7B7390007EBA7 /* HTTPURLResponse+StatusCode.swift */; };
+		CBAEE0D62AF7B7DC0007EBA7 /* URLProtocolStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE0D12AF7B6A40007EBA7 /* URLProtocolStub.swift */; };
 		CBCD68232AD51A4C00710B05 /* UITableView+Dequeueing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCD68222AD51A4C00710B05 /* UITableView+Dequeueing.swift */; };
 		CBCD68252AD51B8C00710B05 /* UIImageView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCD68242AD51B8C00710B05 /* UIImageView+Animations.swift */; };
 		CBCD682E2AD6709100710B05 /* FeedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCD682D2AD6709100710B05 /* FeedLocalizationTests.swift */; };
@@ -185,6 +188,7 @@
 		CBAEE0C92AF643130007EBA7 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Feed.strings"; sourceTree = "<group>"; };
 		CBAEE0CB2AF646BA0007EBA7 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		CBAEE0D12AF7B6A40007EBA7 /* URLProtocolStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProtocolStub.swift; sourceTree = "<group>"; };
+		CBAEE0D32AF7B7390007EBA7 /* HTTPURLResponse+StatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+StatusCode.swift"; sourceTree = "<group>"; };
 		CBCD68222AD51A4C00710B05 /* UITableView+Dequeueing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Dequeueing.swift"; sourceTree = "<group>"; };
 		CBCD68242AD51B8C00710B05 /* UIImageView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Animations.swift"; sourceTree = "<group>"; };
 		CBCD682D2AD6709100710B05 /* FeedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLocalizationTests.swift; sourceTree = "<group>"; };
@@ -513,6 +517,7 @@
 			isa = PBXGroup;
 			children = (
 				CBAEE0D12AF7B6A40007EBA7 /* URLProtocolStub.swift */,
+				CBAEE0D32AF7B7390007EBA7 /* HTTPURLResponse+StatusCode.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -769,7 +774,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A359892B2A66F4D9004A00D9 /* FeedStore.swift in Sources */,
+				CBAEE0D62AF7B7DC0007EBA7 /* URLProtocolStub.swift in Sources */,
 				CB3B2DCE2A9B5C6E00CA52C7 /* FeedStore.xcdatamodeld in Sources */,
+				CBAEE0D52AF7B7D80007EBA7 /* HTTPURLResponse+StatusCode.swift in Sources */,
 				A323A38C2A32F20300EBCB34 /* RemoteFeedLoader.swift in Sources */,
 				A340D47A2A3DA647009A7965 /* HTTPSessionURLClient.swift in Sources */,
 				A39F505A2A38376100E0FF87 /* HTTPClient.swift in Sources */,
@@ -796,6 +803,7 @@
 			files = (
 				A383BFC92A3C327B006A422C /* XCTTestCase+memoryLeakHelper.swift in Sources */,
 				A3EE1C092A31A025000AD9EE /* LoadFeedImageDataFromRemoteUseCaseTests.swift in Sources */,
+				CBAEE0D42AF7B7390007EBA7 /* HTTPURLResponse+StatusCode.swift in Sources */,
 				CBAEE0D22AF7B6A40007EBA7 /* URLProtocolStub.swift in Sources */,
 				CB3B2DAF2A95D07600CA52C7 /* FeedStoreSpecs.swift in Sources */,
 				A3A18C392A70169000134CE1 /* FeedStoreSpy.swift in Sources */,
