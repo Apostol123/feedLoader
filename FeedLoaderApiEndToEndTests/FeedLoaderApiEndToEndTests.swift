@@ -34,7 +34,7 @@ final class FeedLoaderApiEndToEndTests: XCTestCase {
     private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> FeedLoader.Result? {
         let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
         let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
-        let loader = RemoteFeedLoader(client: client, url: testServerURL)
+        let loader = RemoteFeedLoader(client: ephemeralClient(), url: testServerURL)
         trackForMemoryLeaks(client, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
         let exp = expectation(description: "waiting for request loaded")
@@ -47,6 +47,12 @@ final class FeedLoaderApiEndToEndTests: XCTestCase {
 
         return recivedResult
     }
+    
+    private func ephemeralClient(file: StaticString = #file, line: UInt = #line) -> HTTPClient {
+            let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
+            trackForMemoryLeaks(client, file: file, line: line)
+            return client
+        }
 
     private func expectedImage(at index: Int) -> FeedImage {
         FeedImage(
