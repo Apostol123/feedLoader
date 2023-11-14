@@ -10,13 +10,23 @@ import FeedLoader
 
 class FeedLoaderWithFallbackComposite: FeedLoader {
     let primaryLoader: FeedLoader
+    let fallbackLoder: FeedLoader
     
     init(primary: FeedLoader, fallback: FeedLoader) {
         self.primaryLoader = primary
+        self.fallbackLoder = fallback
     }
     
     func load(completion: @escaping (FeedLoader.Result) -> Void) {
-        primaryLoader.load(completion: completion)
+        primaryLoader.load { [weak self] result in
+            switch result {
+            case .success(_):
+                completion(result)
+                
+            case .failure(_):
+                self?.fallbackLoder.load(completion: completion)
+            }
+        }
     }
 }
 
@@ -42,6 +52,24 @@ final class RemoteWithLocalFallbackFeedLoaderTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
+    func test_load_deliversFallbackFeedOnPrimaryFailure() {
+        let fallbackFeed = uniqueFeed()
+        let sut = makeSUT(primaryResult: .failure(anyNSError()), fallbackResult: .success(fallbackFeed))
+        
+        let exp = expectation(description: "Wait for loaded completion")
+        
+        sut.load { result in
+            switch result {
+            case .success(let receivedResult):
+                XCTAssertEqual(receivedResult, fallbackFeed)
+            case .failure(_):
+                XCTFail("Expected successful load feed result, got \(result) instead")
+            }
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(primaryResult: FeedLoader.Result, fallbackResult: FeedLoader.Result, file: StaticString = #file, line: UInt = #line) -> FeedLoader {
@@ -58,6 +86,10 @@ final class RemoteWithLocalFallbackFeedLoaderTests: XCTestCase {
         addTeardownBlock { [weak instance] in
             XCTAssertNil(instance, "instance should have been deallocated, potential memory leak", file: file, line: line)
         }
+    }
+    
+    func anyNSError() -> NSError {
+        return NSError(domain: "www.google.com", code: 1)
     }
     
     private func uniqueFeed() -> [FeedImage] {
