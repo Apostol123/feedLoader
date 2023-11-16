@@ -64,19 +64,7 @@ final class RemoteWithLocalFallbackFeedLoaderTests: XCTestCase {
         return sut
     }
     
-    func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "instance should have been deallocated, potential memory leak", file: file, line: line)
-        }
-    }
-    
-    private func anyURL() -> URL {
-            return URL(string: "http://a-url.com")!
-        }
-    
-    func anyNSError() -> NSError {
-        return NSError(domain: "www.google.com", code: 1)
-    }
+   
     
     private func uniqueFeed() -> [FeedImage] {
         return [FeedImage(id: UUID(), description: "any", location: "any", url: URL(string: "http://any-url.com")!)]
