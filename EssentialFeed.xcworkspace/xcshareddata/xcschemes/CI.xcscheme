@@ -78,6 +78,9 @@
          <TestPlanReference
             reference = "container:EssentialFeediOS.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:EssentialFeed/EssentialFeed/EssentialFeed.xctestplan">
+         </TestPlanReference>
       </TestPlans>
    </TestAction>
    <LaunchAction
