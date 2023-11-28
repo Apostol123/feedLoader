@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB0079472B15BD0A00BA411B /* FeedDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0079462B15BD0A00BA411B /* FeedDecorator.swift */; };
 		CB29CAE02B0DCF5400A12B6F /* FeedLoaderCacheDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB29CADF2B0DCF5400A12B6F /* FeedLoaderCacheDecoratorTests.swift */; };
 		CB29CAE22B0DD1E000A12B6F /* FeedLoaderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB29CAE12B0DD1E000A12B6F /* FeedLoaderStub.swift */; };
 		CB29CAE42B0DD2CB00A12B6F /* XCTTestCase+FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB29CAE32B0DD2CB00A12B6F /* XCTTestCase+FeedLoader.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CB0079462B15BD0A00BA411B /* FeedDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDecorator.swift; sourceTree = "<group>"; };
 		CB29CADF2B0DCF5400A12B6F /* FeedLoaderCacheDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderCacheDecoratorTests.swift; sourceTree = "<group>"; };
 		CB29CAE12B0DD1E000A12B6F /* FeedLoaderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderStub.swift; sourceTree = "<group>"; };
 		CB29CAE32B0DD2CB00A12B6F /* XCTTestCase+FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTTestCase+FeedLoader.swift"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				CBA28B5A2B03427700D3BD25 /* Info.plist */,
 				CBA28B882B04970600D3BD25 /* FeedLoaderWithFallbackComposite.swift */,
 				CBA28B8C2B05E8A700D3BD25 /* FeedImageDataLoaderWithFallbackComposite.swift */,
+				CB0079462B15BD0A00BA411B /* FeedDecorator.swift */,
 			);
 			path = EssentialFeed;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				CBA28B512B03427600D3BD25 /* ViewController.swift in Sources */,
 				CBA28B4D2B03427600D3BD25 /* AppDelegate.swift in Sources */,
 				CBA28B892B04970600D3BD25 /* FeedLoaderWithFallbackComposite.swift in Sources */,
+				CB0079472B15BD0A00BA411B /* FeedDecorator.swift in Sources */,
 				CBA28B4F2B03427600D3BD25 /* SceneDelegate.swift in Sources */,
 				CBA28B8D2B05E8A700D3BD25 /* FeedImageDataLoaderWithFallbackComposite.swift in Sources */,
 			);

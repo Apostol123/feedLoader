@@ -7,6 +7,7 @@
 
 import XCTest
 import FeedLoader
+import EssentialFeed
 
 final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
     func test_load_cacheLoadedFeeDOnLoaderSuccess() {
