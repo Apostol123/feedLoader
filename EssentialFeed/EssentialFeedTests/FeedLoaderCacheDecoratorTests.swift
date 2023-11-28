@@ -8,32 +8,7 @@
 import XCTest
 import FeedLoader
 
-protocol FeedCache {
-    typealias SaveResult = Result<Void, Error>
-    func save(_ feed: [FeedImage], completion: @escaping (SaveResult) -> Void)
-}
-
-final class FeedloaderCacheDecorator: FeedLoader {
-    private let decoratee: FeedLoader
-    private let cache: FeedCache
-    
-    init(decoratee: FeedLoader, cache: FeedCache) {
-        self.decoratee = decoratee
-        self.cache = cache
-    }
-    
-    func load(completion: @escaping (FeedLoader.Result) -> Void) {
-        decoratee.load { [weak self] result in
-            completion(result.map({ feed in
-                self?.cache.save(feed, completion: {_ in})
-                return feed
-            }))
-        }
-    }
-}
-
 final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
-    
     func test_load_cacheLoadedFeeDOnLoaderSuccess() {
         let cache = CacheSpy()
         let feed = uniqueFeed()
@@ -46,7 +21,6 @@ final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
     
     func test_load_doesNotLoadOnLoaderFailure() {
         let cache = CacheSpy()
-        let feed = uniqueFeed()
         let sut = makeSUT(loaderResult: .failure(anyNSError()), cache: cache)
         
         sut.load { _ in}
