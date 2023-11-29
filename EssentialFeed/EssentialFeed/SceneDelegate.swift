@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-        let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
+        let url = URL(string: "https://static1.squarespace.com/static/5891c5b8d1758ec68ef5dbc2/t/5db4155a4fbade21d17ecd28/1572083034355/essential_app_feed.json")!
         let session = URLSession(configuration: .ephemeral)
         let remoteClient = URLSessionHTTPClient(session: session)
         let remoteFeedLoader = RemoteFeedLoader(client: remoteClient, url: url)
@@ -34,14 +34,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let localFeedLoader = LocalFeedLoader(store: localStore, currentDate: Date.init)
         let localImageLoader = LocalFeedImageDataLoader(store: localStore)
         window?.rootViewController = FeedUIComposer.feedComposedWith(
-            loader: FeedloaderCacheDecorator(
-                decoratee: remoteFeedLoader,
-                cache: localFeedLoader),
-            imageLoader: FeedImageDataLoaderWithFallbackComposite(
-                primary: localImageLoader,
-                fallback: remoteImageLoader))
-        
-        
+            loader: remoteFeedLoader,
+            imageLoader: remoteImageLoader)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
