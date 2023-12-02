@@ -28,6 +28,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let localStoreURL = NSPersistentContainer
             .defaultDirectoryURL()
             .appendingPathComponent("feed-store-sqlite")
+        
+        if CommandLine.arguments.contains("-reset") {
+            try? FileManager.default.removeItem(at: localStoreURL)
+        }
             
         let localStore = try! CoreDataFeedStore(storeURL: localStoreURL)
         let localFeedLoader = LocalFeedLoader(store: localStore, currentDate: Date.init)
@@ -39,8 +43,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                 cache: localFeedLoader),
                             fallback: localFeedLoader),
                            imageLoader: FeedImageDataLoaderWithFallbackComposite(
-                            primary: localImageLoader,
-                            fallback: remoteImageLoader))
+                            primary: FeedImageCacheDecorator(
+                                decoratee: localImageLoader,
+                                cache: localImageLoader),
+                            fallback: localImageLoader))
     }
 
     private func makeRemoteClient() -> HTTPClient {
