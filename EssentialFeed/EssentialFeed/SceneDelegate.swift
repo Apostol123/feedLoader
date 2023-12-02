@@ -11,10 +11,13 @@ import FeedLoader
 import EssentialFeediOS
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
-
+    let localStoreURL = NSPersistentContainer
+        .defaultDirectoryURL()
+        .appendingPathComponent("feed-store-sqlite")
+    
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -25,48 +28,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let remoteFeedLoader = RemoteFeedLoader(client: remoteClient, url: url)
         let remoteImageLoader = RemoteFeedImageDataLoader(client: remoteClient)
         
-        let localStoreURL = NSPersistentContainer
-            .defaultDirectoryURL()
-            .appendingPathComponent("feed-store-sqlite")
-        
-        if CommandLine.arguments.contains("-reset") {
-            try? FileManager.default.removeItem(at: localStoreURL)
-        }
-            
         let localStore = try! CoreDataFeedStore(storeURL: localStoreURL)
         let localFeedLoader = LocalFeedLoader(store: localStore, currentDate: Date.init)
         let localImageLoader = LocalFeedImageDataLoader(store: localStore)
         window?.rootViewController = FeedUIComposer.feedComposedWith(
             loader: FeedLoaderWithFallbackComposite(
-                            primary: FeedloaderCacheDecorator(
-                                decoratee: remoteFeedLoader,
-                                cache: localFeedLoader),
-                            fallback: localFeedLoader),
-                           imageLoader: FeedImageDataLoaderWithFallbackComposite(
-                            primary: FeedImageCacheDecorator(
-                                decoratee: localImageLoader,
-                                cache: localImageLoader),
-                            fallback: localImageLoader))
-    }
-
-    private func makeRemoteClient() -> HTTPClient {
-        switch UserDefaults.standard.string(forKey: "connectivity") {
-        case "offline":
-            return AlwaysFallingHTTPClient()
-        default:
-            return URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
-        }
-    }
-}
-
-private class AlwaysFallingHTTPClient: HTTPClient {
-    private class Task: HTTPClientTask {
-        func cancel() {}
+                primary: FeedloaderCacheDecorator(
+                    decoratee: remoteFeedLoader,
+                    cache: localFeedLoader),
+                fallback: localFeedLoader),
+            imageLoader: FeedImageDataLoaderWithFallbackComposite(
+                primary: FeedImageCacheDecorator(
+                    decoratee: remoteImageLoader,
+                    cache: localImageLoader),
+                fallback: localImageLoader))
     }
     
-    func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) -> HTTPClientTask {
-        completion(.failure(NSError(domain: "offline", code: 0)))
-        return Task()
+    func makeRemoteClient() -> HTTPClient {
+        return URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }
 }
 
