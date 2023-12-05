@@ -30,6 +30,7 @@
 		CBA28B8F2B05E8F600D3BD25 /* XCTestCase+MemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA28B8E2B05E8F600D3BD25 /* XCTestCase+MemoryLeak.swift */; };
 		CBA28B922B05E94300D3BD25 /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA28B912B05E94300D3BD25 /* SharedHelpers.swift */; };
 		CBBC34282B1B21BE002B237E /* DebuggingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBC34272B1B21BE002B237E /* DebuggingSceneDelegate.swift */; };
+		CBBC342A2B1F793E002B237E /* SceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBC34292B1F793E002B237E /* SceneDelegateTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		CBA28B8E2B05E8F600D3BD25 /* XCTestCase+MemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeak.swift"; sourceTree = "<group>"; };
 		CBA28B912B05E94300D3BD25 /* SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedHelpers.swift; sourceTree = "<group>"; };
 		CBBC34272B1B21BE002B237E /* DebuggingSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuggingSceneDelegate.swift; sourceTree = "<group>"; };
+		CBBC34292B1F793E002B237E /* SceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegateTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				CBA28B862B03462200D3BD25 /* RemoteWithLocalFallbackFeedLoaderTests.swift */,
 				CBA28B8A2B04980E00D3BD25 /* FeedImageDataLoaderWithFallbackCompositeTests.swift */,
 				CB29CADF2B0DCF5400A12B6F /* FeedLoaderCacheDecoratorTests.swift */,
+				CBBC34292B1F793E002B237E /* SceneDelegateTests.swift */,
 			);
 			path = EssentialFeedTests;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				CBA28B8F2B05E8F600D3BD25 /* XCTestCase+MemoryLeak.swift in Sources */,
 				CB29CAE22B0DD1E000A12B6F /* FeedLoaderStub.swift in Sources */,
 				CBA28B872B03462200D3BD25 /* RemoteWithLocalFallbackFeedLoaderTests.swift in Sources */,
+				CBBC342A2B1F793E002B237E /* SceneDelegateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
