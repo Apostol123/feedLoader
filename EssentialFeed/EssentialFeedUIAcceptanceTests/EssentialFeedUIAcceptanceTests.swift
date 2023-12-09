@@ -33,7 +33,7 @@ final class EssentialFeedUIAcceptanceTests: XCTestCase {
         XCTAssertEqual(oflineFeed.renderedFeedImageData(at: 1), makeImageData())
     }
     
-    func test_onLaunch_displaysEmptyFeedWhenCsutomerHasNoConnectivityAndNoCache() {
+    func test_onLaunch_displaysEmptyFeedWhenCutomerHasNoConnectivityAndNoCache() {
         let feed = launch(httpClient: .offline, store: .empty)
         
         XCTAssertEqual(feed.numberOFRenderedFeedImageViews(), 0)
