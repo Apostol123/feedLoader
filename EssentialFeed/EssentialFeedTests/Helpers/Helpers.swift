@@ -151,6 +151,10 @@ extension XCTestCase {
         let feedImageCell = feedImageView(at: index)
         return feedImageCell as? FeedImageCell
     }
+     
+     func renderedFeedImageData(at index: Int) -> Data? {
+         return simulateFeedImageViewVisible(at: index)?.renderedImage
+     }
     
     @discardableResult
     func simulateFeedImageViewNotVisible(at row: Int) -> FeedImageCell? {

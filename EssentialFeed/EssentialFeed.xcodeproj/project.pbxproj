@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		CB0079472B15BD0A00BA411B /* FeedDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0079462B15BD0A00BA411B /* FeedDecorator.swift */; };
-		CB00794F2B1708C900BA411B /* EssentialFeedUIAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB00794E2B1708C900BA411B /* EssentialFeedUIAcceptanceTests.swift */; };
 		CB26B5232B1B17DB005F6E8A /* FeedImageCacheDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB26B5222B1B17DB005F6E8A /* FeedImageCacheDecorator.swift */; };
 		CB29CAE02B0DCF5400A12B6F /* FeedLoaderCacheDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB29CADF2B0DCF5400A12B6F /* FeedLoaderCacheDecoratorTests.swift */; };
 		CB29CAE22B0DD1E000A12B6F /* FeedLoaderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB29CAE12B0DD1E000A12B6F /* FeedLoaderStub.swift */; };
 		CB29CAE42B0DD2CB00A12B6F /* XCTTestCase+FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB29CAE32B0DD2CB00A12B6F /* XCTTestCase+FeedLoader.swift */; };
+		CB36ECC02B2077A9003B18C4 /* EssentialFeedUIAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB00794E2B1708C900BA411B /* EssentialFeedUIAcceptanceTests.swift */; };
 		CBA28B4D2B03427600D3BD25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA28B4C2B03427600D3BD25 /* AppDelegate.swift */; };
 		CBA28B4F2B03427600D3BD25 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA28B4E2B03427600D3BD25 /* SceneDelegate.swift */; };
 		CBA28B512B03427600D3BD25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA28B502B03427600D3BD25 /* ViewController.swift */; };
@@ -343,7 +343,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB00794F2B1708C900BA411B /* EssentialFeedUIAcceptanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +372,7 @@
 				CBA28B8B2B04980E00D3BD25 /* FeedImageDataLoaderWithFallbackCompositeTests.swift in Sources */,
 				CBBC343A2B1F80D8002B237E /* FeedUIIntegrationTests.swift in Sources */,
 				CBBC34382B1F8057002B237E /* Helpers.swift in Sources */,
+				CB36ECC02B2077A9003B18C4 /* EssentialFeedUIAcceptanceTests.swift in Sources */,
 				CBA28B8F2B05E8F600D3BD25 /* XCTestCase+MemoryLeak.swift in Sources */,
 				CB29CAE22B0DD1E000A12B6F /* FeedLoaderStub.swift in Sources */,
 				CBA28B872B03462200D3BD25 /* RemoteWithLocalFallbackFeedLoaderTests.swift in Sources */,
