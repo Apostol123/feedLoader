@@ -22,7 +22,15 @@ final class EssentialFeedUIAcceptanceTests: XCTestCase {
     }
     
     func test_onLaunch_displaysCacheRemoteFeedWhenCustomerHasNoConnectivity() {
-       
+        let sharedStore = InMemoryFeedStore.empty
+        let onlineFeed = launch(httpClient: .online(response(for:)), store: sharedStore)
+        onlineFeed.simulateFeedImageViewVisible(at: 0)
+        onlineFeed.simulateFeedImageViewVisible(at: 1)
+        
+        let oflineFeed = launch(httpClient: .offline, store: sharedStore)
+        XCTAssertEqual(oflineFeed.numberOFRenderedFeedImageViews(), 2)
+        XCTAssertEqual(oflineFeed.renderedFeedImageData(at: 0), makeImageData())
+        XCTAssertEqual(oflineFeed.renderedFeedImageData(at: 1), makeImageData())
     }
     
     func test_onLaunch_displaysEmptyFeedWhenCsutomerHasNoConnectivityAndNoCache() {
