@@ -39,7 +39,26 @@ final class EssentialFeedUIAcceptanceTests: XCTestCase {
         XCTAssertEqual(feed.numberOFRenderedFeedImageViews(), 0)
     }
     
+    func test_onEnteringBackground_deletesExpiredCache() {
+        let store = InMemoryFeedStore.withExpiredFeedCache
+        enterBackground(with: store)
+        
+        XCTAssertNil(store.feedCache, "Expected to delete cache")
+    }
+    
+    func test_onEnteringBackground_keepsNonExpiringFeedCache() {
+        let store = InMemoryFeedStore.withNonExpiredFeedCache
+        enterBackground(with: store)
+        
+        XCTAssertNotNil(store.feedCache, "Expected to keeep non-expired cache")
+    }
+    
     //MARK: - Helpers
+    
+    private func enterBackground(with store: InMemoryFeedStore) {
+        let sut = SceneDelegate(httpClient: HTTPClientStub.offline, store: store)
+        sut.sceneWillResignActive(UIApplication.shared.connectedScenes.first!)
+    }
     
     
     private func launch(
