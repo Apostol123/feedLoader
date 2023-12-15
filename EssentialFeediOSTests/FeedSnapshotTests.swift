@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import FeedLoader
 @testable import EssentialFeediOS
 
 
@@ -28,7 +29,22 @@ final class FeedSnapshotTests: XCTestCase {
         
         record(snapshot: sut.snapshot(), named: "FEED_WITH_CONTENT")
     }
-   
+    
+    func test_FeedWithErrorMessage() {
+        let sut = makeSUT()
+        
+        sut.display(.error(message: "ErrorMessage"))
+        
+        record(snapshot: sut.snapshot(), named: "FEED_WITH_ERROR_MESSAGE")
+    }
+    
+    func test_FeedFailedImageLoading() {
+        let sut = makeSUT()
+        
+        sut.display(feedWithImageFailedLoading())
+        
+        record(snapshot: sut.snapshot(), named: "FEED_WITH_FAILED_IMAGE_LOADING")
+    }
     
     //MARK: - Helpers
     
@@ -65,6 +81,20 @@ final class FeedSnapshotTests: XCTestCase {
         } catch {
             XCTFail("Failes to record snashot with error \(error)", file: file, line: line)
         }
+    }
+    
+    private func feedWithImageFailedLoading() -> [ImageStub] {
+        return [ ImageStub(
+            description: nil,
+            location: "Cannon Street Londong",
+            image: nil
+        ),
+                 ImageStub(
+                    description: nil,
+                    location: "Brighton Seafron",
+                    image: nil
+                 )
+        ]
     }
     
     private func feedWithContent() -> [ImageStub] {
