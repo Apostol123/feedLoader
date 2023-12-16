@@ -18,6 +18,7 @@ extension XCTestCase {
     }
     
      func assertThat(_ sut: FeedViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line) {
+         sut.tableView.layoutIfNeeded()
         guard sut.numberOFRenderedFeedImageViews() == feed.count else {
             return XCTFail("Expected \(feed.count) images, got \(sut.numberOFRenderedFeedImageViews()) instead", file: file, line: line)
         }
