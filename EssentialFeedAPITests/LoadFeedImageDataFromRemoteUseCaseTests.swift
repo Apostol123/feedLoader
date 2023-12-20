@@ -7,6 +7,7 @@
 
 import XCTest
 import FeedLoader
+import EssentialFeedAPI
 final class LoadFeedImageDataFromRemoteUseCaseTests: XCTestCase {
     
     func test_load_deliversError_onClientError() {

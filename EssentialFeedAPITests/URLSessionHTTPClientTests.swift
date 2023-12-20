@@ -7,6 +7,7 @@
 
 import XCTest
 import FeedLoader
+import EssentialFeedAPI
 
 final class URLSessionHTTPClientTests: XCTestCase {
     

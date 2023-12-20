@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>EssentialFeedAPI.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>EssentialFeediOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +38,16 @@
 			<true/>
 		</dict>
 		<key>CB3B2DB62A99F14700CA52C7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB752A852B321DDE0032E43C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB752A8C2B321DDE0032E43C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

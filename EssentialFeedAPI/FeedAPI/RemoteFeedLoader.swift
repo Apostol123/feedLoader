@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FeedLoader
 
 public final class RemoteFeedLoader: FeedLoader {
     let client: HTTPClient
