@@ -78,14 +78,14 @@ final class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
     func test_load_deliversItemsOn2xxHTTPResponseWithJSONItems() {
         let (sut, client) = makeSUT()
         let item1 = makeItem(id: UUID(),
-                             description: nil,
-                             location: nil,
-                             imageURL: URL(string: "www.google.com")!)
+                             message: "a message",
+                             createdAt: (Date(timeIntervalSince1970: 1598627222), "2020-08-28T15:07:02+00:00"),
+                             username: "a username")
         
         let item2 = makeItem(id: UUID(),
-                             description: "aDescription",
-                             location: "aLocation",
-                             imageURL: URL(string: "www.youtube.com")!)
+                             message: "another message",
+                             createdAt: (Date(timeIntervalSince1970: 1577881882), "2020-01-01T12:31:22+00:00"),
+                             username: "aanother username")
         let items = [item1.model, item2.model]
         
         let samples = [200, 201, 250, 275, 285]
@@ -127,14 +127,17 @@ final class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         return .failure(error)
     }
     
-    private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedImage, json: [String: Any]) {
-        let item = FeedImage(id: id, description: description, location: location, url: imageURL)
+    private func makeItem(id: UUID, message: String, createdAt: (date: Date, iso8601String: String), username: String) -> (model: ImageComments, json: [String: Any]) {
+        let item = ImageComments(id: id, message: message, createdAt: createdAt.date, username: username)
         let json = [
             "id": id.uuidString,
-            "description": description,
-            "location": location,
-            "image": imageURL.absoluteString
-        ].compactMapValues { $0}
+            "message": message,
+            "created_at": createdAt.iso8601String,
+            "author": [
+                "username": username
+            ]
+        ] as [String : Any] 
+        
         
         return (item, json)
     }
