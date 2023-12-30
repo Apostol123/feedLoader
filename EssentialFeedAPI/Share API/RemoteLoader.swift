@@ -8,38 +8,39 @@
 import Foundation
 import FeedLoader
 
-public final class RemoteLoader: FeedLoader {
+public final class RemoteLoader<Resource> {
+    public typealias Mapper = (Data, HTTPURLResponse) throws -> Resource
     let client: HTTPClient
     let url: URL
+    let mapper: Mapper
 
     public enum Error: Swift.Error {
         case conectivity
         case invalidData
     }
     
-    public typealias Result = FeedLoader.Result
-
-    public init(client: HTTPClient, url: URL) {
+    public typealias Result = Swift.Result<Resource, Swift.Error>
+    public init(client: HTTPClient, url: URL, mapper: @escaping Mapper) {
         self.client = client
         self.url = url
+        self.mapper = mapper
     }
 
     public func load(completion: @escaping (Result) -> Void) {
         client.get(from: url, completion: {[weak self] result in
-            guard self != nil else {return}
+            guard let self = self else {return}
             switch result {
             case .failure:
                 completion(.failure(Error.conectivity))
             case .success(let data, let response):
-                completion(RemoteLoader.map(data, from: response))
+                completion(self.map(data, from: response))
             }
         })
     }
 
-    private static func map(_ data: Data, from response: HTTPURLResponse) -> Result {
+    private  func map(_ data: Data, from response: HTTPURLResponse) -> Result {
         do {
-            let items = try FeedItemsMapper.map(data, response)
-          return .success(items)
+          return .success(try mapper(data, response))
         } catch {
             return .failure(Error.invalidData)
         }
