@@ -110,12 +110,11 @@ final class FeedItemsMapperTests: XCTestCase {
     }
     
 }
-
-private func anyURL() -> URL {
-    URL(string: "www.google.com")!
+func anyURL() -> URL {
+   URL(string: "www.google.com")!
 }
 
-private extension HTTPURLResponse {
+extension HTTPURLResponse {
     
     convenience init(statusCode: Int) {
         self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!

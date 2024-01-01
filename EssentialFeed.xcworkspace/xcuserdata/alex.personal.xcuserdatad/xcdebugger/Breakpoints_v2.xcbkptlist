@@ -189,6 +189,21 @@
                   endingLineNumber = "15"
                   offsetFromSymbolStart = "80">
                </Location>
+               <Location
+                  uuid = "E427E019-59F7-4155-BDCF-1656050E2C75 - b64fc21a63a001a1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EssentialFeedAPI.RemoteLoader&lt;&#x3c4;_0_0 where &#x3c4;_0_0 == Swift.Array&lt;FeedLoader.FeedImage&gt;&gt;.init(client: EssentialFeedAPI.HTTPClient, url: Foundation.URL) -&gt; EssentialFeedAPI.RemoteLoader&lt;Swift.Array&lt;FeedLoader.FeedImage&gt;&gt;"
+                  moduleName = "EssentialFeedAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeedAPI/FeedAPI/RemoteFeedLoader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "152">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
