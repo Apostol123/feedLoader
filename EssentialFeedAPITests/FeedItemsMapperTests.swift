@@ -8,69 +8,33 @@
 import XCTest
 import FeedLoader
 import EssentialFeedAPI
-final class LoadFeedImageDataFromRemoteUseCaseTests: XCTestCase {
-    
-    func test_load_deliversError_onClientError() {
-        let (sut, client) = makeSUT()
-        let clientError = NSError(domain: "Test", code: 0)
-        expect(sut, toCompleteWithResult: failure(.conectivity)) {
-            client.complete(with: clientError)
-        }
-    }
-    
-    func test_load_deliversErrorOnNon200HttpResponse() {
-        let (sut, client) = makeSUT()
+final class FeedItemsMapperTests: XCTestCase {
+    func test_map_throwsErrorOnNon200HttpResponse() throws {
         let samples = [199, 201, 300, 400, 500]
-        samples.enumerated().forEach { index, code in
-            expect(sut, toCompleteWithResult: failure(.invalidData)) {
-                let json = makeItemItemsJson([])
-                client.complete(withStatusCode: code, data: json, at: index)
-            }
+        let json = makeItemItemsJson([])
+        try samples.forEach { code in
+            XCTAssertThrowsError(
+                try FeedItemsMapper.map(json, HTTPURLResponse(statusCode: code))
+            )
         }
     }
     
-    
-    func test_init_doesNotRequestDataFromURL() {
-        let (_, client) = makeSUT()
-        XCTAssertTrue(client.requestedURLs.isEmpty)
+    func test_map_throwsError_On200HttpResponseWithInvalidJSON() throws {
+        let invalidJSON = Data("invalid json".utf8)
+        XCTAssertThrowsError(
+            try FeedItemsMapper.map(invalidJSON, HTTPURLResponse(statusCode: 200))
+        )
     }
     
-    func test_load_requestsDataFromURL() {
-        let url = URL(string: "www.google.com")!
-        let (sut, client) = makeSUT(url: url)
+    func test_map_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() throws {
+        let emptyListJson = makeItemItemsJson([])
         
-        sut.load{_ in}
-        XCTAssertEqual(client.requestedURLs, [url])
-    }
-    
-    func test_loadTwice_requestsDataFromURLTwice() {
-        let url = URL(string: "www.google.com")!
-        let (sut, client) = makeSUT(url: url)
+        let result = try FeedItemsMapper.map(emptyListJson, HTTPURLResponse(statusCode: 200))
         
-        sut.load{_ in}
-        sut.load{_ in}
-        XCTAssertEqual(client.requestedURLs, [url, url])
+        XCTAssertEqual(result, [])
     }
     
-    func test_load_delivers_Error_On200HttpResponseWithInvalidJSON() {
-        let (sut, client) = makeSUT()
-        expect(sut, toCompleteWithResult: failure(.invalidData)) {
-            let invalidJSON = Data("invalid json".utf8)
-            client.complete(withStatusCode: 200, data: invalidJSON)
-        }
-    }
-    
-    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
-        let (sut, client) = makeSUT()
-        expect(sut, toCompleteWithResult: .success([])) {
-            let emptyListJson = makeItemItemsJson([])
-            client.complete(withStatusCode: 200, data: emptyListJson)
-        }
-        
-    }
-    
-    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
-        let (sut, client) = makeSUT()
+    func test_map_deliversItemsOn200HTTPResponseWithJSONItems() throws {
         let item1 = makeItem(id: UUID(),
                              description: nil,
                              location: nil,
@@ -81,12 +45,11 @@ final class LoadFeedImageDataFromRemoteUseCaseTests: XCTestCase {
                              location: "aLocation",
                              imageURL: URL(string: "www.youtube.com")!)
         let items = [item1.model, item2.model]
+        let json = makeItemItemsJson([item1.json, item2.json])
         
-        expect(sut, toCompleteWithResult: .success(items)) {
-            let json = makeItemItemsJson([item1.json, item2.json])
-            client.complete(withStatusCode: 200, data: json)
-        }
+        let result = try FeedItemsMapper.map(json, HTTPURLResponse(statusCode: 200))
         
+        XCTAssertEqual(result, items)
     }
     
     func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
@@ -105,15 +68,7 @@ final class LoadFeedImageDataFromRemoteUseCaseTests: XCTestCase {
     }
     
     //MARK: Helpers
-    private func makeSUT(url: URL = URL(string: "www.google.com")!, file: StaticString = #filePath, line: UInt = #line ) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
-        let client = HTTPClientSpy()
-        let sut =  RemoteFeedLoader(client: client, url: url)
-        trackForMemoryLeaks(client, file: file, line: line)
-        trackForMemoryLeaks(sut, file: file, line: line)
-        return (sut, client)
-        
-    }
-    
+   
     private func failure(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result {
         return .failure(error)
     }
@@ -152,5 +107,17 @@ final class LoadFeedImageDataFromRemoteUseCaseTests: XCTestCase {
         action()
         
         wait(for: [exp], timeout: 1.0)
+    }
+    
+}
+
+private func anyURL() -> URL {
+    URL(string: "www.google.com")!
+}
+
+private extension HTTPURLResponse {
+    
+    convenience init(statusCode: Int) {
+        self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!
     }
 }

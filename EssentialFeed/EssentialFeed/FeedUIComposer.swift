@@ -135,14 +135,14 @@ private final class FeedViewAdapter: FeedView {
 private final class FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
     private let feedLoader: () -> FeedLoader.Publisher
     var presenter: FeedPresenter?
-    private var cancellable: Cancellable?
+    private var cancellable: AnyCancellable?
     
     init(feedLoader: @escaping () -> FeedLoader.Publisher) {
         self.feedLoader = feedLoader
     }
     
     func didRequestFeedRefresh() {
-            presenter?.feedDidStarLoadingFeed()
+        presenter?.feedDidStarLoadingFeed()
         
         cancellable = feedLoader().sink { [weak self] completion in
             switch completion {
@@ -153,6 +153,7 @@ private final class FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
         } receiveValue: { [weak self] feed in
             self?.presenter?.didFinishLoadingFeed(with: feed)
         }
+        
     }
 }
 

@@ -3,4 +3,242 @@
    uuid = "3B9B7CE6-ADE8-406E-B7A1-9918BE1CFB6C"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1604E145-06DE-45FD-8407-91C4639D66E8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EssentialFeed/EssentialFeed/FeedUIComposer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "didRequestFeedRefresh()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "42D6900C-754C-4F41-8D07-7AF5E9225C6B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EssentialFeed/EssentialFeed/FeedUIComposer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "didRequestFeedRefresh()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "98CF1AAD-289F-4F32-A416-E734362509B1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EssentialFeed/EssentialFeed/FeedUIComposer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "didRequestFeedRefresh()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E3FA5A56-7FCB-4C0D-A1FB-4406A5CEF5B4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FeedPresentation/FeedPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "didFinishLoadingFeed(with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4EC7447C-1BD2-4D1A-8592-F4DA2CD67465"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FeedPresentation/FeedPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "didFinishLoadingFeed(with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "63311E7F-B158-4AED-BBF1-624AEA7F088F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EssentialFeed/EssentialFeed/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "loadPublisher()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "63311E7F-B158-4AED-BBF1-624AEA7F088F - c6412f5691227b23"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; Combine.Future&lt;Swift.Array&lt;FeedLoader.FeedImage&gt;, Swift.Error&gt; in FeedLoader.FeedLoader.loadPublisher() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;FeedLoader.FeedImage&gt;, Swift.Error&gt;"
+                  moduleName = "EssentialFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeed/EssentialFeed/SceneDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "63311E7F-B158-4AED-BBF1-624AEA7F088F - 482076179b182c01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #2 ((Swift.Result&lt;Swift.Array&lt;FeedLoader.FeedImage&gt;, Swift.Error&gt;) -&gt; ()) -&gt; () in implicit closure #1 (&#x3c4;_0_0) -&gt; ((Swift.Result&lt;Swift.Array&lt;FeedLoader.FeedImage&gt;, Swift.Error&gt;) -&gt; ()) -&gt; () in closure #1 () -&gt; Combine.Future&lt;Swift.Array&lt;FeedLoader.FeedImage&gt;, Swift.Error&gt; in FeedLoader.FeedLoader.loadPublisher() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;FeedLoader.FeedImage&gt;, Swift.Error&gt;"
+                  moduleName = "EssentialFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeed/EssentialFeed/SceneDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "350C1B2F-77C4-4C5B-B5E1-CC6FA59003FD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            breakpointStackSelectionBehavior = "1"
+            scope = "0"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E427E019-59F7-4155-BDCF-1656050E2C75"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EssentialFeedAPI/FeedAPI/RemoteFeedLoader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "init(client:url:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E427E019-59F7-4155-BDCF-1656050E2C75 - b64fc21a63a001a1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EssentialFeedAPI.RemoteLoader&lt;&#x3c4;_0_0 where &#x3c4;_0_0 == Swift.Array&lt;FeedLoader.FeedImage&gt;&gt;.init(client: EssentialFeedAPI.HTTPClient, url: Foundation.URL) -&gt; EssentialFeedAPI.RemoteLoader&lt;Swift.Array&lt;FeedLoader.FeedImage&gt;&gt;"
+                  moduleName = "EssentialFeedAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeedAPI/FeedAPI/RemoteFeedLoader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "E427E019-59F7-4155-BDCF-1656050E2C75 - f87dc1acf7cca62f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #1 (Foundation.Data, __C.NSHTTPURLResponse) throws -&gt; Swift.Array&lt;FeedLoader.FeedImage&gt; in EssentialFeedAPI.RemoteLoader&lt;&#x3c4;_0_0 where &#x3c4;_0_0 == Swift.Array&lt;FeedLoader.FeedImage&gt;&gt;.init(client: EssentialFeedAPI.HTTPClient, url: Foundation.URL) -&gt; EssentialFeedAPI.RemoteLoader&lt;Swift.Array&lt;FeedLoader.FeedImage&gt;&gt;"
+                  moduleName = "EssentialFeedAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeedAPI/FeedAPI/RemoteFeedLoader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1F5E1464-D528-46F3-A1FB-DFDCEC9A4E4B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EssentialFeed/EssentialFeed/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "schedule(after:interval:tolerance:options:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1CB7E69F-91E6-4715-B9BA-09671369F34F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EssentialFeed/EssentialFeed/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "schedule(after:tolerance:options:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2E5B5678-B228-4FEF-9B3C-63D10E81052E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EssentialFeed/EssentialFeed/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "schedule(options:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
