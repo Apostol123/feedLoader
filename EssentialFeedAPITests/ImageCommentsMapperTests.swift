@@ -60,20 +60,7 @@ final class ImageCommentsMapperTests: XCTestCase {
         }
     }
     
-    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
-        let url = URL(string: "www.google.com")!
-        let client = HTTPClientSpy()
-        var sut: RemoteImageCommentsLoader? = RemoteImageCommentsLoader(client: client, url: url)
-        
-        var capturedResult = [RemoteImageCommentsLoader.Result]()
-        sut?.load(completion: {capturedResult.append($0)})
-        
-        sut = nil
-        
-        client.complete(withStatusCode: 200, data: makeItemItemsJson([]))
-        
-        XCTAssertTrue(capturedResult.isEmpty)
-    }
+   
     
     //MARK: Helpers
 

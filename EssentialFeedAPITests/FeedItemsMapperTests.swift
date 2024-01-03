@@ -52,26 +52,11 @@ final class FeedItemsMapperTests: XCTestCase {
         XCTAssertEqual(result, items)
     }
     
-    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
-        let url = URL(string: "www.google.com")!
-        let client = HTTPClientSpy()
-        var sut: RemoteFeedLoader? = RemoteFeedLoader(client: client, url: url)
-        
-        var capturedResult = [RemoteFeedLoader.Result]()
-        sut?.load(completion: {capturedResult.append($0)})
-        
-        sut = nil
-        
-        client.complete(withStatusCode: 200, data: makeItemItemsJson([]))
-        
-        XCTAssertTrue(capturedResult.isEmpty)
-    }
+    
     
     //MARK: Helpers
    
-    private func failure(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result {
-        return .failure(error)
-    }
+   
     
     private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedImage, json: [String: Any]) {
         let item = FeedImage(id: id, description: description, location: location, url: imageURL)
@@ -91,13 +76,13 @@ final class FeedItemsMapperTests: XCTestCase {
         return json
     }
     
-    private func expect(_ sut: RemoteFeedLoader, toCompleteWithResult expectedResult: RemoteFeedLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ sut: RemoteLoader<FeedImage>, toCompleteWithResult expectedResult: RemoteLoader<FeedImage>.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "wait for load completion")
         sut.load(completion: {recivedResult in
             switch (recivedResult, expectedResult) {
             case let (.success(recivedItems), .success(expectedItems)):
                 XCTAssertEqual(recivedItems, expectedItems, file: file, line: line)
-            case let (.failure(recivedError as RemoteFeedLoader.Error), .failure(expectedError as RemoteFeedLoader.Error)):
+            case let (.failure(recivedError as RemoteLoader<FeedImage>.Error), .failure(expectedError as RemoteLoader<FeedImage>.Error)):
                 XCTAssertEqual(recivedError, expectedError, file: file, line: line)
             default:
                 XCTFail("Expected result \(expectedResult) but got \(recivedResult)", file: file, line: line)

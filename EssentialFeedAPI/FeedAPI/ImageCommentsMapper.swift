@@ -26,6 +26,10 @@ public final class ImageCommentsMapper {
             items.map {ImageComments(id: $0.id, message: $0.message, createdAt: $0.created_at, username: $0.author.username)}
         }
     }
+    
+    public enum Error: Swift.Error {
+        case invalidData
+    }
 
     private static var OK_200: Int {return 200}
 
@@ -34,7 +38,7 @@ public final class ImageCommentsMapper {
         decoder.dateDecodingStrategy = .iso8601
         guard isOK(respose),
               let root = try? decoder.decode(Root.self, from: data) else {
-            throw RemoteImageCommentsLoader.Error.invalidData
+            throw Error.invalidData
         }
         return root.comments
     }
