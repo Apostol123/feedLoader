@@ -96,6 +96,8 @@
 		CBE8E40E2B474B90009B152D /* LoadResourcePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE8E40D2B474B90009B152D /* LoadResourcePresenter.swift */; };
 		CBE8E4122B49649E009B152D /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE8E4112B49649E009B152D /* SharedLocalizationTests.swift */; };
 		CBE8E4132B496532009B152D /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBE8E4152B496532009B152D /* Shared.strings */; };
+		CBE8E4192B496C7C009B152D /* ResourceLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE8E4182B496C7C009B152D /* ResourceLoadingView.swift */; };
+		CBE8E41B2B496CE0009B152D /* ResourceLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE8E41A2B496CE0009B152D /* ResourceLoadingViewModel.swift */; };
 		CBFC517E2B298AF4007D7B29 /* UIImage+Make.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFC517D2B298AF4007D7B29 /* UIImage+Make.swift */; };
 /* End PBXBuildFile section */
 
@@ -267,6 +269,8 @@
 		CBE8E4142B496532009B152D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Shared.strings; sourceTree = "<group>"; };
 		CBE8E4162B496534009B152D /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Shared.strings; sourceTree = "<group>"; };
 		CBE8E4172B496534009B152D /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Shared.strings"; sourceTree = "<group>"; };
+		CBE8E4182B496C7C009B152D /* ResourceLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoadingView.swift; sourceTree = "<group>"; };
+		CBE8E41A2B496CE0009B152D /* ResourceLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoadingViewModel.swift; sourceTree = "<group>"; };
 		CBFC517D2B298AF4007D7B29 /* UIImage+Make.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Make.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -672,6 +676,8 @@
 		CBE8E40C2B474B77009B152D /* SharedPresentation */ = {
 			isa = PBXGroup;
 			children = (
+				CBE8E41A2B496CE0009B152D /* ResourceLoadingViewModel.swift */,
+				CBE8E4182B496C7C009B152D /* ResourceLoadingView.swift */,
 				CBE8E40D2B474B90009B152D /* LoadResourcePresenter.swift */,
 				CBE8E4152B496532009B152D /* Shared.strings */,
 			);
@@ -1011,6 +1017,7 @@
 				CB3B2DD12A9C671D00CA52C7 /* CoreDataHelpers.swift in Sources */,
 				A3EAF9392A683C6300481482 /* LocalFeedImage.swift in Sources */,
 				CB752AC32B3838D90032E43C /* ImageComments.swift in Sources */,
+				CBE8E41B2B496CE0009B152D /* ResourceLoadingViewModel.swift in Sources */,
 				CB3B2DC62A9A45DE00CA52C7 /* CoreDataFeedStore.swift in Sources */,
 				CB3B2DD32A9C676100CA52C7 /* ManagedCache.swift in Sources */,
 				CB3B2DD52A9C678700CA52C7 /* ManageFeedImage.swift in Sources */,
@@ -1026,6 +1033,7 @@
 				CBE8E40E2B474B90009B152D /* LoadResourcePresenter.swift in Sources */,
 				CBA28B302B01F26C00D3BD25 /* LocalFeedImageDataLoader.swift in Sources */,
 				CB752AAF2B32204D0032E43C /* FeedImageDataLoader.swift in Sources */,
+				CBE8E4192B496C7C009B152D /* ResourceLoadingView.swift in Sources */,
 				CBA28B2D2AFCB75700D3BD25 /* CoreDataFeedStore+FeedStore.swift in Sources */,
 				A3EE1BFE2A31A025000AD9EE /* FeedLoader.docc in Sources */,
 			);

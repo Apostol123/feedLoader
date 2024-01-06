@@ -23,14 +23,6 @@ public struct FeedErrorViewModel {
     }
 }
 
-public struct FeedLoadingViewModel {
-    public let isLoading: Bool
-}
-
-public protocol FeedLoadingView {
-    func display(_ viewModel: FeedLoadingViewModel)
-}
-
 public protocol FeedErrorView {
     func display(_ viewModel: FeedErrorViewModel)
 }
@@ -41,10 +33,10 @@ public protocol FeedView: AnyObject {
 
 public final class FeedPresenter {
     private let errorView: FeedErrorView
-    private let feedLoadingView: FeedLoadingView
+    private let feedLoadingView: ResourceLoadingView
     private let feedView: FeedView
     
-    public init(errorView: FeedErrorView, feedLoadingView: FeedLoadingView, feedView: FeedView) {
+    public init(errorView: FeedErrorView, feedLoadingView: ResourceLoadingView, feedView: FeedView) {
         self.errorView = errorView
         self.feedLoadingView = feedLoadingView
         self.feedView = feedView
@@ -66,16 +58,16 @@ public final class FeedPresenter {
     
     public func feedDidStarLoadingFeed() {
         errorView.display(FeedErrorViewModel(message: .none))
-        feedLoadingView.display(FeedLoadingViewModel(isLoading: true))
+        feedLoadingView.display(ResourceLoadingViewModel(isLoading: true))
     }
     
     public func didFinishLoadingFeed(with feed: [FeedImage]) {
         feedView.display(FeedViewModel(feed: feed))
-        feedLoadingView.display(FeedLoadingViewModel(isLoading: false))
+        feedLoadingView.display(ResourceLoadingViewModel(isLoading: false))
     }
     
     public func didFinishLoadingFeed(with: Error) {
         errorView.display(.error(message: feedLoadError))
-        feedLoadingView.display(FeedLoadingViewModel(isLoading: false))
+        feedLoadingView.display(ResourceLoadingViewModel(isLoading: false))
     }
 }
