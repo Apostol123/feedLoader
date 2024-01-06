@@ -11,21 +11,8 @@ public struct FeedViewModel {
     public let feed: [FeedImage]
 }
 
-public protocol FeedView: AnyObject {
-    func display(_ viewModel: FeedViewModel)
-}
 
 public final class FeedPresenter {
-    private let errorView: ResourceErrorView
-    private let feedLoadingView: ResourceLoadingView
-    private let feedView: FeedView
-    
-    public init(errorView: ResourceErrorView, feedLoadingView: ResourceLoadingView, feedView: FeedView) {
-        self.errorView = errorView
-        self.feedLoadingView = feedLoadingView
-        self.feedView = feedView
-    }
-    
     public static var title: String {
         return NSLocalizedString("FEED_VIEW_TITLE",
                           tableName: "Feed",

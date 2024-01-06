@@ -108,7 +108,7 @@ extension WeakRefVirtualProxy: ResourceErrorView where T: ResourceErrorView {
     }
 }
 
-private final class FeedViewAdapter: FeedView, ResourceView {
+private final class FeedViewAdapter: ResourceView {
     private weak var controller: FeedViewController?
     private let imageLoader: FeedImageDataLoader
     

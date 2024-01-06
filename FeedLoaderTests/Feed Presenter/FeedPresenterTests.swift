@@ -22,13 +22,6 @@ final class FeedPresenterTests: XCTestCase {
         XCTAssertEqual(viewModel.feed, feed)
     }
     
-    func test_init_doesNotSendMessagesToView() {
-        let (_, view) = makeSUT()
-        
-        XCTAssertTrue(view.messages.isEmpty, "Expected no view messages")
-    }
-    
-    
     //MARK: - Helpers
     
     private func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
@@ -40,34 +33,5 @@ final class FeedPresenterTests: XCTestCase {
         }
         
         return value
-    }
-    
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedPresenter, view: ViewSpy) {
-        let view = ViewSpy()
-        let sut = FeedPresenter(errorView: view, feedLoadingView: view, feedView: view)
-        trackForMemoryLeaks(view, file: file, line: line)
-        trackForMemoryLeaks(sut, file: file, line: line)
-        return (sut, view)
-    }
-    
-    private class ViewSpy: ResourceErrorView, ResourceLoadingView, FeedView {
-        enum Messages: Hashable {
-            case display(errorMessages: String?)
-            case display(isLoading: Bool)
-            case display(feed: [FeedImage])
-        }
-        var messages = Set<Messages>()
-        
-        func display(_ viewModel: ResourceErrorViewModel) {
-            messages.insert(.display(errorMessages: viewModel.message))
-        }
-        
-        func display(_ viewModel: ResourceLoadingViewModel) {
-            messages.insert(.display(isLoading: viewModel.isLoading))
-        }
-        
-        func display(_ viewModel: FeedViewModel) {
-            messages.insert(.display(feed: viewModel.feed))
-        }
     }
 }
