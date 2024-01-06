@@ -28,26 +28,6 @@ final class FeedPresenterTests: XCTestCase {
         XCTAssertTrue(view.messages.isEmpty, "Expected no view messages")
     }
     
-    func test_didStartLoadingFeed_displaysNoErrorMessagesAndStartsLoading() {
-        let (sut, view) = makeSUT()
-        
-        sut.feedDidStarLoadingFeed()
-        XCTAssertEqual(view.messages, [
-            .display(errorMessages: .none),
-            .display(isLoading: true)
-        ])
-    }
-    
-    func test_didFinishLoadingFeed_displaysNoErrorMessagesAndStartsLoading() {
-        let (sut, view) = makeSUT()
-        let feed = uniqueImageFeed().models
-        
-        sut.didFinishLoadingFeed(with: feed)
-        XCTAssertEqual(view.messages, [
-            .display(feed: feed),
-            .display(isLoading: false)
-        ])
-    }
     
     //MARK: - Helpers
     
