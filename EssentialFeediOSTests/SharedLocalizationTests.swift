@@ -10,23 +10,11 @@ import FeedLoader
 
 final class SharedLocalizationTests: XCTestCase {
 
+   
     func test_localizedStrings_haveKeysAndValuesForAllSupportedLocalizations() {
         let table = "Shared"
         let presentationBundle = Bundle(for: LoadResourcePresenter<Any, DummyView>.self)
-        let localizationBundles = allLocalizationBundles(in: presentationBundle)
-        let localizedStringKeys = allLocalizedStringKeys(in: localizationBundles, table: table)
-
-        localizationBundles.forEach { (bundle, localization) in
-            localizedStringKeys.forEach { key in
-                let localizedString = bundle.localizedString(forKey: key, value: nil, table: table)
-
-                if localizedString == key {
-                    let language = Locale.current.localizedString(forLanguageCode: localization) ?? ""
-
-                    XCTFail("Missing \(language) (\(localization)) localized string for key: '\(key)' in table: '\(table)'")
-                }
-            }
-        }
+        assertLocalizaedKeyAndValuesExist(in: presentationBundle, table)
     }
 
     // MARK: - Helpers
@@ -34,6 +22,27 @@ final class SharedLocalizationTests: XCTestCase {
     private class DummyView: ResourceView {
         func display(_ viewModel: Any) {}
     }
+}
+
+extension XCTestCase {
+    
+    func assertLocalizaedKeyAndValuesExist(in  presentationBundle: Bundle, _ table: String) {
+        let localizationBundles = allLocalizationBundles(in: presentationBundle)
+        let localizedStringKeys = allLocalizedStringKeys(in: localizationBundles, table: table)
+        
+        localizationBundles.forEach { (bundle, localization) in
+            localizedStringKeys.forEach { key in
+                let localizedString = bundle.localizedString(forKey: key, value: nil, table: table)
+                
+                if localizedString == key {
+                    let language = Locale.current.localizedString(forLanguageCode: localization) ?? ""
+                    
+                    XCTFail("Missing \(language) (\(localization)) localized string for key: '\(key)' in table: '\(table)'")
+                }
+            }
+        }
+    }
+    
     
     private typealias LocalizedBundle = (bundle: Bundle, localization: String)
 
