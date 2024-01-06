@@ -11,32 +11,18 @@ public struct FeedViewModel {
     public let feed: [FeedImage]
 }
 
-public struct FeedErrorViewModel {
-    public let message: String?
-    
-    static var noError: FeedErrorViewModel {
-        return FeedErrorViewModel(message: nil)
-    }
-    
-    static func error(message: String) -> FeedErrorViewModel {
-        return FeedErrorViewModel(message: message)
-    }
-}
 
-public protocol FeedErrorView {
-    func display(_ viewModel: FeedErrorViewModel)
-}
 
 public protocol FeedView: AnyObject {
     func display(_ viewModel: FeedViewModel)
 }
 
 public final class FeedPresenter {
-    private let errorView: FeedErrorView
+    private let errorView: ResourceErrorView
     private let feedLoadingView: ResourceLoadingView
     private let feedView: FeedView
     
-    public init(errorView: FeedErrorView, feedLoadingView: ResourceLoadingView, feedView: FeedView) {
+    public init(errorView: ResourceErrorView, feedLoadingView: ResourceLoadingView, feedView: FeedView) {
         self.errorView = errorView
         self.feedLoadingView = feedLoadingView
         self.feedView = feedView
@@ -57,7 +43,7 @@ public final class FeedPresenter {
         }
     
     public func feedDidStarLoadingFeed() {
-        errorView.display(FeedErrorViewModel(message: .none))
+        errorView.display(ResourceErrorViewModel(message: .none))
         feedLoadingView.display(ResourceLoadingViewModel(isLoading: true))
     }
     
