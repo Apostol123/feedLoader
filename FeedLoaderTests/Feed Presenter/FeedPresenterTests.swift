@@ -42,17 +42,6 @@ final class FeedPresenterTests: XCTestCase {
         ])
     }
     
-    func test_didFinishLoadingFeedWithError_displaysLocalizedErrorMessageAndStopsLoading() {
-        let (sut, view) = makeSUT()
-        
-        sut.didFinishLoadingFeed(with: anyError())
-        
-        XCTAssertEqual(view.messages,
-                       [ .display(errorMessages: localized("GENERIC_VIEW_CONNECTION_ERROR")),
-                         .display(isLoading: false)
-                       ])
-    }
-    
     //MARK: - Helpers
     
     private func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {

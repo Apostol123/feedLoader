@@ -1,0 +1,8 @@
+/* 
+  Shared.strings
+  FeedLoader
+
+  Created by Alex.personal on 6/1/24.
+  
+*/
+"GENERIC_VIEW_CONNECTION_ERROR" = "Couldn't connect to server";
