@@ -14,7 +14,7 @@ public final class FeedUIComposer {
     private init() {}
     
     public static func feedComposedWith(loader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> FeedViewController {
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: {loader().dispatchOnMainQueue() })
+        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: {loader().dispatchOnMainQueue() })
        
         let bundle = Bundle(for: FeedViewController.self)
         let storyboard = UIStoryboard(name: "FeedStoryboard", bundle: bundle)
@@ -132,31 +132,36 @@ private final class FeedViewAdapter: ResourceView {
 }
 
 
-private final class FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
-    private let feedLoader: () -> FeedLoader.Publisher
-    var presenter: LoadResourcePresenter<[FeedImage], FeedViewAdapter>?
+private final class LoadResourcePresentationAdapter<Resource, View: ResourceView> {
+    private let loader: () -> AnyPublisher<Resource, Error>
+    var presenter: LoadResourcePresenter<Resource, View>?
     private var cancellable: AnyCancellable?
     
-    init(feedLoader: @escaping () -> FeedLoader.Publisher) {
-        self.feedLoader = feedLoader
+    init(loader: @escaping () -> AnyPublisher<Resource, Error>) {
+        self.loader = loader
     }
     
-    func didRequestFeedRefresh() {
+    func loadResource() {
         presenter?.didStarLoading()
         
-        cancellable = feedLoader().sink { [weak self] completion in
+        cancellable = loader().sink { [weak self] completion in
             switch completion {
             case .finished: break
             case .failure(let error):
                 self?.presenter?.didFinishLoading(with: error)
             }
-        } receiveValue: { [weak self] feed in
-            self?.presenter?.didFinishLoading(with: feed)
+        } receiveValue: { [weak self] resource in
+            self?.presenter?.didFinishLoading(with: resource)
         }
         
     }
 }
 
+extension LoadResourcePresentationAdapter: FeedViewControllerDelegate {
+    func didRequestFeedRefresh() {
+        loadResource()
+    }
+}
 
 private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where View.Image == Image {
     private let model: FeedImage
