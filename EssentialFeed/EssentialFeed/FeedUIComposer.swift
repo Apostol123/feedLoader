@@ -96,8 +96,8 @@ extension WeakRefVirtualProxy: ResourceLoadingView where T: ResourceLoadingView 
     }
 }
 
-extension WeakRefVirtualProxy: FeedImageView where T: FeedImageView, T.Image == UIImage {
-    func display(_ model: FeedImageViewModel<UIImage>) {
+extension WeakRefVirtualProxy: ResourceView where T: ResourceView, T.ResourceViewModel == UIImage {
+    func display(_ model: UIImage) {
         object?.display(model)
     }
 }
@@ -119,17 +119,30 @@ private final class FeedViewAdapter: ResourceView {
     
     func display(_ viewModel: FeedViewModel) {
         controller?.display( viewModel.feed.map { model in
-            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader)
-                        let view = FeedImageCellController(delegate: adapter)
+            let adapter = LoadResourcePresentationAdapter<Data,WeakRefVirtualProxy<FeedImageCellController>>(loader: { [imageLoader] in
+                imageLoader.load(from: model.url)
+            })
+                        let view = FeedImageCellController(
+                            viewModel: FeedImagePresenter<FeedImageCellController, UIImage>.map(model),
+                            delegate: adapter)
 
-                        adapter.presenter = FeedImagePresenter(
-                            view: WeakRefVirtualProxy(view),
-                            imageTransformer: UIImage.init)
+                        adapter.presenter = LoadResourcePresenter(
+                            errorView: WeakRefVirtualProxy(view),
+                            feedLoadingView: WeakRefVirtualProxy(view),
+                            resourceView: WeakRefVirtualProxy(view),
+                            mapper: { data in
+                                guard let image = UIImage(data: data) else {
+                                    throw InvalidImageDataError()
+                                }
+                                return image
+                            })
 
                         return view
         })
     }
 }
+
+private struct InvalidImageDataError: Error {}
 
 
 private final class LoadResourcePresentationAdapter<Resource, View: ResourceView> {
@@ -154,6 +167,16 @@ private final class LoadResourcePresentationAdapter<Resource, View: ResourceView
             self?.presenter?.didFinishLoading(with: resource)
         }
         
+    }
+}
+
+extension LoadResourcePresentationAdapter: FeedImageCellControllerDelegate {
+    func didRequestImage() {
+       loadResource()
+    }
+
+    func didCancelImageRequest() {
+        cancellable?.cancel()
     }
 }
 
