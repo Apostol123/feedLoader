@@ -100,6 +100,7 @@
 		CBE8E41B2B496CE0009B152D /* ResourceLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE8E41A2B496CE0009B152D /* ResourceLoadingViewModel.swift */; };
 		CBE8E41D2B496D52009B152D /* ResourceErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE8E41C2B496D52009B152D /* ResourceErrorView.swift */; };
 		CBE8E41F2B496D62009B152D /* ResourceErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE8E41E2B496D62009B152D /* ResourceErrorViewModel.swift */; };
+		CBE8E4212B4B3675009B152D /* FeedImagePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE8E4202B4B3675009B152D /* FeedImagePresenterTests.swift */; };
 		CBFC517E2B298AF4007D7B29 /* UIImage+Make.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFC517D2B298AF4007D7B29 /* UIImage+Make.swift */; };
 /* End PBXBuildFile section */
 
@@ -275,6 +276,7 @@
 		CBE8E41A2B496CE0009B152D /* ResourceLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoadingViewModel.swift; sourceTree = "<group>"; };
 		CBE8E41C2B496D52009B152D /* ResourceErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceErrorView.swift; sourceTree = "<group>"; };
 		CBE8E41E2B496D62009B152D /* ResourceErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceErrorViewModel.swift; sourceTree = "<group>"; };
+		CBE8E4202B4B3675009B152D /* FeedImagePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImagePresenterTests.swift; sourceTree = "<group>"; };
 		CBFC517D2B298AF4007D7B29 /* UIImage+Make.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Make.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -618,6 +620,7 @@
 				CBCD682D2AD6709100710B05 /* FeedLocalizationTests.swift */,
 				CB0A72312B2838ED00480BEA /* FeedSnapshotTests.swift */,
 				CBE8E4112B49649E009B152D /* SharedLocalizationTests.swift */,
+				CBE8E4202B4B3675009B152D /* FeedImagePresenterTests.swift */,
 			);
 			path = EssentialFeediOSTests;
 			sourceTree = "<group>";
@@ -1134,6 +1137,7 @@
 			files = (
 				CBFC517E2B298AF4007D7B29 /* UIImage+Make.swift in Sources */,
 				CBCD682E2AD6709100710B05 /* FeedLocalizationTests.swift in Sources */,
+				CBE8E4212B4B3675009B152D /* FeedImagePresenterTests.swift in Sources */,
 				CB0A72322B2838ED00480BEA /* FeedSnapshotTests.swift in Sources */,
 				CBE8E4122B49649E009B152D /* SharedLocalizationTests.swift in Sources */,
 			);
