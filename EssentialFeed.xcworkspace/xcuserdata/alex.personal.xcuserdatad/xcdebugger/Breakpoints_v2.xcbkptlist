@@ -97,150 +97,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1F5E1464-D528-46F3-A1FB-DFDCEC9A4E4B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EssentialFeed/EssentialFeed/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "schedule(after:interval:tolerance:options:_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1F5E1464-D528-46F3-A1FB-DFDCEC9A4E4B - 8c24c2664d0231c0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__C.OS_dispatch_queue.ImmediateWhenOnMainQueueSchedular.schedule(after: __C.OS_dispatch_queue.SchedulerTimeType, interval: __C.OS_dispatch_queue.SchedulerTimeType.Stride, tolerance: __C.OS_dispatch_queue.SchedulerTimeType.Stride, options: Swift.Optional&lt;__C.OS_dispatch_queue.SchedulerOptions&gt;, _: () -&gt; ()) -&gt; Combine.Cancellable"
-                  moduleName = "EssentialFeed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeed/EssentialFeed/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "118"
-                  endingLineNumber = "118"
-                  offsetFromSymbolStart = "112">
-               </Location>
-               <Location
-                  uuid = "1F5E1464-D528-46F3-A1FB-DFDCEC9A4E4B - 8c24c2664d02314c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__C.OS_dispatch_queue.ImmediateWhenOnMainQueueSchedular.schedule(after: __C.OS_dispatch_queue.SchedulerTimeType, interval: __C.OS_dispatch_queue.SchedulerTimeType.Stride, tolerance: __C.OS_dispatch_queue.SchedulerTimeType.Stride, options: Swift.Optional&lt;__C.OS_dispatch_queue.SchedulerOptions&gt;, _: () -&gt; ()) -&gt; Combine.Cancellable"
-                  moduleName = "EssentialFeed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeed/EssentialFeed/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122"
-                  offsetFromSymbolStart = "112">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1CB7E69F-91E6-4715-B9BA-09671369F34F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EssentialFeed/EssentialFeed/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "schedule(after:tolerance:options:_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1CB7E69F-91E6-4715-B9BA-09671369F34F - 105b688659f35a6c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__C.OS_dispatch_queue.ImmediateWhenOnMainQueueSchedular.schedule(after: __C.OS_dispatch_queue.SchedulerTimeType, tolerance: __C.OS_dispatch_queue.SchedulerTimeType.Stride, options: Swift.Optional&lt;__C.OS_dispatch_queue.SchedulerOptions&gt;, _: () -&gt; ()) -&gt; ()"
-                  moduleName = "EssentialFeed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeed/EssentialFeed/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122"
-                  offsetFromSymbolStart = "96">
-               </Location>
-               <Location
-                  uuid = "1CB7E69F-91E6-4715-B9BA-09671369F34F - 105b688659f359e8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__C.OS_dispatch_queue.ImmediateWhenOnMainQueueSchedular.schedule(after: __C.OS_dispatch_queue.SchedulerTimeType, tolerance: __C.OS_dispatch_queue.SchedulerTimeType.Stride, options: Swift.Optional&lt;__C.OS_dispatch_queue.SchedulerOptions&gt;, _: () -&gt; ()) -&gt; ()"
-                  moduleName = "EssentialFeed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeed/EssentialFeed/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "126"
-                  endingLineNumber = "126"
-                  offsetFromSymbolStart = "96">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2E5B5678-B228-4FEF-9B3C-63D10E81052E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EssentialFeed/EssentialFeed/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "schedule(options:_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2E5B5678-B228-4FEF-9B3C-63D10E81052E - 166b08418f52f052"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__C.OS_dispatch_queue.ImmediateWhenOnMainQueueSchedular.schedule(options: Swift.Optional&lt;__C.OS_dispatch_queue.SchedulerOptions&gt;, _: () -&gt; ()) -&gt; ()"
-                  moduleName = "EssentialFeed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeed/EssentialFeed/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "127"
-                  endingLineNumber = "127"
-                  offsetFromSymbolStart = "164">
-               </Location>
-               <Location
-                  uuid = "2E5B5678-B228-4FEF-9B3C-63D10E81052E - 166b08418f52f0ee"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__C.OS_dispatch_queue.ImmediateWhenOnMainQueueSchedular.schedule(options: Swift.Optional&lt;__C.OS_dispatch_queue.SchedulerOptions&gt;, _: () -&gt; ()) -&gt; ()"
-                  moduleName = "EssentialFeed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/EssentialFeed/EssentialFeed/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "131"
-                  endingLineNumber = "131"
-                  offsetFromSymbolStart = "164">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "AE180FB1-AB01-4D4F-AFB4-BEB31B5E02B4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -314,6 +170,22 @@
                   offsetFromSymbolStart = "24">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C32E607-DC58-41CF-A2C5-0BDF7354AB2A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SharedPresentation/LoadResourcePresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "didFinishLoading(with:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

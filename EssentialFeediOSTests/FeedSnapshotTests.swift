@@ -208,7 +208,7 @@ private final class SnapshotWindows: UIWindow {
 private extension FeedViewController {
     func display(_ stubs: [ImageStub]) {
         let cells: [FeedImageCellController] = stubs.map { stub in
-            let cellControllers = FeedImageCellController(delegate: stub)
+            let cellControllers = FeedImageCellController(viewModel: stub.viewModel, delegate: stub)
             stub.controller = cellControllers
             return cellControllers
         }
@@ -218,19 +218,24 @@ private extension FeedViewController {
 
 private class ImageStub: FeedImageCellControllerDelegate {
     weak var controller: FeedImageCellController?
-    let viewModel: FeedImageViewModel<UIImage>
+    let viewModel: FeedImageViewModel
+    let image: UIImage?
     
     init(description: String?, location: String?, image: UIImage?) {
+        self.image = image
         viewModel = FeedImageViewModel(
             description: description,
-            location: location,
-            image: image,
-            isLoading: false,
-            shouldRetry: image == nil)
+            location: location)
     }
     
     func didRequestImage() {
-        controller?.display(viewModel)
+        controller?.display(ResourceLoadingViewModel(isLoading: false))
+        if let image = image {
+            controller?.display(ResourceErrorViewModel(message: .none))
+        } else {
+            controller?.display(ResourceErrorViewModel(message: "any"))
+        }
+       
     }
     
     func didCancelImageRequest() {
