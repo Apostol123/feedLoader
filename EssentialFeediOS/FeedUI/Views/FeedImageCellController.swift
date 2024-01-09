@@ -52,10 +52,10 @@ public final class FeedImageCellController: ResourceView, ResourceLoadingView, R
     }
     
     public func display(_ viewModel: ResourceLoadingViewModel) {
-        cell?.feedImageRetryButton.isHidden = viewModel.isLoading
+        cell?.feedImageRetryButton.isHidden = !viewModel.isLoading
     }
     
     public func display(_ viewModel: ResourceErrorViewModel) {
-        cell?.feedImageContainer.isShimmering = viewModel.message == nil
+        cell?.feedImageContainer.isShimmering = !(viewModel.message == nil)
     }
 }

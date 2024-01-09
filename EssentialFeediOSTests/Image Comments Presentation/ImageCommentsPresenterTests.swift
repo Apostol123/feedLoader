@@ -19,8 +19,8 @@ final class ImageCommentsPresenterTests: XCTestCase {
         let calendar = Calendar(identifier: .gregorian)
         let locale = Locale(identifier: "en_US_POSIX")
         let comments = [
-            ImageComments(id: UUID(), message: "a message", createdAt: now.adding(minutes: -5), username: "a username"),
-            ImageComments(id: UUID(), message: "another message", createdAt: now.adding(days: -1), username: "another username")
+            ImageComments(id: UUID(), message: "a message", createdAt: now.adding(minutes: -5, calendar: calendar), username: "a username"),
+            ImageComments(id: UUID(), message: "another message", createdAt: now.adding(days: -1, calendar: calendar), username: "another username")
         ]
         
         let viewModel = ImageCommentsPresenter.map(
@@ -64,11 +64,11 @@ public extension Date {
         return self + seconds
     }
     
-     func adding(minutes: Int) -> Date {
-        return Calendar(identifier: .gregorian).date(byAdding: .minute, value: minutes, to: self)!
+    func adding(minutes: Int, calendar: Calendar = .current) -> Date {
+        return calendar.date(byAdding: .minute, value: minutes, to: self)!
     }
     
-     func adding(days: Int) -> Date {
-        return Calendar(identifier: .gregorian).date(byAdding: .day, value: days, to: self)!
+     func adding(days: Int, calendar: Calendar = .current) -> Date {
+        return calendar.date(byAdding: .day, value: days, to: self)!
     }
 }
