@@ -32,6 +32,9 @@
 		CB2A2FA92ACA88FF00C50D87 /* FeedAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB2A2FA82ACA88FF00C50D87 /* FeedAssets.xcassets */; };
 		CB2D57FA2AF0D3AB00BAD294 /* FeedPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D57F92AF0D3AB00BAD294 /* FeedPresenterTests.swift */; };
 		CB30BCC42A91061700088283 /* CodableFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB30BCC32A91061700088283 /* CodableFeedStore.swift */; };
+		CB39D68F2B4F2A1400DDEC48 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39D68E2B4F2A1400DDEC48 /* ErrorView.swift */; };
+		CB39D6922B4F2AA100DDEC48 /* UIRefreshControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39D6912B4F2AA100DDEC48 /* UIRefreshControllerHelper.swift */; };
+		CB39D6942B4F2B5700DDEC48 /* UITableView+HeaderSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39D6932B4F2B5700DDEC48 /* UITableView+HeaderSizing.swift */; };
 		CB3B2DAF2A95D07600CA52C7 /* FeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3B2DAE2A95D07600CA52C7 /* FeedStoreSpecs.swift */; };
 		CB3B2DB12A95D14100CA52C7 /* XCTest+FeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3B2DB02A95D14100CA52C7 /* XCTest+FeedStoreSpecs.swift */; };
 		CB3B2DBA2A99F14700CA52C7 /* FeedLoaderCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3B2DB92A99F14700CA52C7 /* FeedLoaderCacheIntegrationTests.swift */; };
@@ -218,6 +221,9 @@
 		CB2A2FA82ACA88FF00C50D87 /* FeedAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FeedAssets.xcassets; sourceTree = "<group>"; };
 		CB2D57F92AF0D3AB00BAD294 /* FeedPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenterTests.swift; sourceTree = "<group>"; };
 		CB30BCC32A91061700088283 /* CodableFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStore.swift; sourceTree = "<group>"; };
+		CB39D68E2B4F2A1400DDEC48 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		CB39D6912B4F2AA100DDEC48 /* UIRefreshControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIRefreshControllerHelper.swift; sourceTree = "<group>"; };
+		CB39D6932B4F2B5700DDEC48 /* UITableView+HeaderSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+HeaderSizing.swift"; sourceTree = "<group>"; };
 		CB3B2DAE2A95D07600CA52C7 /* FeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreSpecs.swift; sourceTree = "<group>"; };
 		CB3B2DB02A95D14100CA52C7 /* XCTest+FeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+FeedStoreSpecs.swift"; sourceTree = "<group>"; };
 		CB3B2DB72A99F14700CA52C7 /* FeedLoaderCacheIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedLoaderCacheIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -505,6 +511,42 @@
 			path = "Feed Presenter";
 			sourceTree = "<group>";
 		};
+		CB39D68B2B4F290C00DDEC48 /* Shared UI */ = {
+			isa = PBXGroup;
+			children = (
+				CB39D68D2B4F29D900DDEC48 /* Views */,
+				CB39D68C2B4F291500DDEC48 /* Controllers */,
+			);
+			path = "Shared UI";
+			sourceTree = "<group>";
+		};
+		CB39D68C2B4F291500DDEC48 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CBA3EC052AAEDC3800235AFC /* ListViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CB39D68D2B4F29D900DDEC48 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CB39D6902B4F2A7600DDEC48 /* Helpers */,
+				CB39D68E2B4F2A1400DDEC48 /* ErrorView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CB39D6902B4F2A7600DDEC48 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CB39D6912B4F2AA100DDEC48 /* UIRefreshControllerHelper.swift */,
+				CBCD68222AD51A4C00710B05 /* UITableView+Dequeueing.swift */,
+				CB39D6932B4F2B5700DDEC48 /* UITableView+HeaderSizing.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		CB3B2DB82A99F14700CA52C7 /* FeedLoaderCacheIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -567,7 +609,6 @@
 		CB6702BD2AB9683600C9D3FD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CBA3EC052AAEDC3800235AFC /* ListViewController.swift */,
 				CB6702C22AB96B6100C9D3FD /* FeedRefreshViewController.swift */,
 			);
 			path = Controller;
@@ -579,7 +620,6 @@
 				CB6702B82AB0371E00C9D3FD /* FeedImageCell.swift */,
 				CB6702BA2AB2D06600C9D3FD /* UIView+Simmering.swift */,
 				CB6702C42AB975B100C9D3FD /* FeedImageCellController.swift */,
-				CBCD68222AD51A4C00710B05 /* UITableView+Dequeueing.swift */,
 				CBCD68242AD51B8C00710B05 /* UIImageView+Animations.swift */,
 			);
 			path = Views;
@@ -633,6 +673,7 @@
 		CB80F5BC2AA9981A0059453D /* EssentialFeediOS */ = {
 			isa = PBXGroup;
 			children = (
+				CB39D68B2B4F290C00DDEC48 /* Shared UI */,
 				CB2A2FA32AC6923E00C50D87 /* FeedPresentation */,
 				CB6702BC2AB9682A00C9D3FD /* FeedUI */,
 				CB80F5D02AA998990059453D /* EssentialFeediOS.xctestplan */,
@@ -1155,11 +1196,14 @@
 				CB6702C32AB96B6100C9D3FD /* FeedRefreshViewController.swift in Sources */,
 				CBCD68232AD51A4C00710B05 /* UITableView+Dequeueing.swift in Sources */,
 				CB6702BB2AB2D06600C9D3FD /* UIView+Simmering.swift in Sources */,
+				CB39D6942B4F2B5700DDEC48 /* UITableView+HeaderSizing.swift in Sources */,
 				CBA3EC062AAEDC3800235AFC /* ListViewController.swift in Sources */,
 				CB6702B92AB0371E00C9D3FD /* FeedImageCell.swift in Sources */,
+				CB39D6922B4F2AA100DDEC48 /* UIRefreshControllerHelper.swift in Sources */,
 				CB6702C52AB975B100C9D3FD /* FeedImageCellController.swift in Sources */,
 				CB965DE52AC2A2D3005854B0 /* FeedImageCellModel.swift in Sources */,
 				CBCD68252AD51B8C00710B05 /* UIImageView+Animations.swift in Sources */,
+				CB39D68F2B4F2A1400DDEC48 /* ErrorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
