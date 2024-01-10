@@ -18,6 +18,7 @@ public protocol CellController {
 
 public final class ListViewController: UITableViewController, UITableViewDataSourcePrefetching, ResourceLoadingView, ResourceErrorView {
     public var onRefresh: (() -> Void)?
+    private(set) public var errorView = ErrorView()
     
     private var loadingControllers = [IndexPath: CellController]()
     
@@ -30,6 +31,24 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
     public override func viewDidLoad() {
         super.viewDidLoad()
         onRefresh?()
+        tableView.tableHeaderView = errorView.makeContainer()
+        errorView.onHide = { [weak self] in
+            self?.tableView.beginUpdates()
+            self?.tableView.sizeTableHeaderToFit()
+            self?.tableView.endUpdates()
+        }
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        tableView.sizeTableHeaderToFit()
+    }
+    
+    public override func traitCollectionDidChange(_ previous: UITraitCollection?) {
+        if previous?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+            tableView.reloadData()
+        }
     }
     
     public func display(_ cellController: [CellController]) {
@@ -38,17 +57,11 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
     }
     
     public func display(_ viewModel: ResourceLoadingViewModel) {
-        if viewModel.isLoading {
-            refreshControl?.beginRefreshing()
-        } else {
-            refreshControl?.endRefreshing()
-        }
+        refreshControl?.update(isRefreshing: viewModel.isLoading)
     }
     
     public func display(_ viewModel: ResourceErrorViewModel) {
-        if viewModel.message != nil {
-            
-        }
+        errorView.message = viewModel.message
     }
     
     @IBAction

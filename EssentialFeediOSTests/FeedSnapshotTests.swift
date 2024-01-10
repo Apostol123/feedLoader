@@ -17,8 +17,8 @@ final class FeedSnapshotTests: XCTestCase {
         let sut = makeSUT()
         
         sut.display(feedWithContent())
-//        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_CONTENT_DARK")
-//        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_CONTENT_LIGHT")
+        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_CONTENT_DARK")
+        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_CONTENT_LIGHT")
        
     }
     
@@ -34,8 +34,8 @@ final class FeedSnapshotTests: XCTestCase {
         let sut = makeSUT()
         
         sut.display(feedWithImageFailedLoading())
-//        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_FAILED_IMAGE_LOADING_LIGHT")
-//        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_FAILED_IMAGE_LOADING_DARK")
+        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_FAILED_IMAGE_LOADING_LIGHT")
+        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_FAILED_IMAGE_LOADING_DARK")
     }
     
     //MARK: - Helpers
@@ -217,6 +217,7 @@ public  extension XCTestCase {
             )
             
             try snapshotData?.write(to: snapshotURL, options: .atomic)
+            XCTFail("Record succeded - use `assert` to compare the snapshot from now on.")
         } catch {
             XCTFail("Failes to record snashot with error \(error)", file: file, line: line)
         }
