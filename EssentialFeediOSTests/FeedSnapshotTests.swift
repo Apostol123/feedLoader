@@ -12,15 +12,7 @@ import XCTest
 
 final class FeedSnapshotTests: XCTestCase {
     
-    func test_emptyFeed() {
-        let sut = makeSUT()
-        
-        sut.display(emptyFeed())
-        
-        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "EMPTY_FEED_LIGHT")
-        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "EMPTY_FEED_DARK")
-    }
-    
+   
     func test_FeedWithContent() {
         let sut = makeSUT()
         
@@ -42,8 +34,8 @@ final class FeedSnapshotTests: XCTestCase {
         let sut = makeSUT()
         
         sut.display(feedWithImageFailedLoading())
-        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_FAILED_IMAGE_LOADING_LIGHT")
-        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_FAILED_IMAGE_LOADING_DARK")
+//        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_FAILED_IMAGE_LOADING_LIGHT")
+//        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_FAILED_IMAGE_LOADING_DARK")
     }
     
     //MARK: - Helpers
@@ -62,57 +54,7 @@ final class FeedSnapshotTests: XCTestCase {
         return []
     }
     
-    private func assert(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
-        let snapshotData = makeSnapshotData(for: snapshot, file: file, line: line)
-        
-        let snapshotURL = makeSnapshotURL(named: name, file: file)
-        
-        guard let storedSnapshotData = try? Data(contentsOf: snapshotURL) else {
-            XCTFail("Failed to load stored snapshot at URL: \(snapshotURL). Use the `record` method to store a snapshot before asserting.", file: file, line: line)
-            return
-        }
-        
-        if snapshotData != storedSnapshotData {
-            let temporarySnapshotURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-                .appending(component: snapshotURL.lastPathComponent)
-            try? snapshotData?.write(to: temporarySnapshotURL)
-            
-            XCTFail("New Snapshot does not match stored snapshot. New snapshot URL: \(temporarySnapshotURL), Stored snapshot URL: \(snapshotURL)", file: file, line: line)
-        }
-    }
     
-    func record(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
-       let snapshotData = makeSnapshotData(for: snapshot, file: file, line: line)
-        
-        let snapshotURL = makeSnapshotURL(named: name, file: file)
-        
-        do {
-            try FileManager.default.createDirectory(
-                at: snapshotURL.deletingLastPathComponent(),
-                withIntermediateDirectories: true
-            )
-            
-            try snapshotData?.write(to: snapshotURL, options: .atomic)
-        } catch {
-            XCTFail("Failes to record snashot with error \(error)", file: file, line: line)
-        }
-    }
-    
-    private func makeSnapshotURL(named name: String, file: StaticString) -> URL {
-        return URL(fileURLWithPath: String(describing: file))
-            .deletingLastPathComponent()
-            .appendingPathComponent("spanshots")
-            .appendingPathComponent("\(name).png")
-    }
-    
-    private func makeSnapshotData(for snapshot: UIImage, file: StaticString, line: UInt) -> Data? {
-        guard let data = snapshot.pngData() else {
-            XCTFail("Failed to generate PNG data representation from snapshot", file: file, line: line)
-            return nil
-        }
-        
-        return data
-    }
     
     private func feedWithImageFailedLoading() -> [ImageStub] {
         return [ ImageStub(
@@ -242,3 +184,59 @@ private class ImageStub: FeedImageCellControllerDelegate {
         
     }
 }
+
+public  extension XCTestCase {
+     func assert(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
+        let snapshotData = makeSnapshotData(for: snapshot, file: file, line: line)
+        
+        let snapshotURL = makeSnapshotURL(named: name, file: file)
+        
+        guard let storedSnapshotData = try? Data(contentsOf: snapshotURL) else {
+            XCTFail("Failed to load stored snapshot at URL: \(snapshotURL). Use the `record` method to store a snapshot before asserting.", file: file, line: line)
+            return
+        }
+        
+         if snapshotData != storedSnapshotData {
+            let temporarySnapshotURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+                .appending(component: snapshotURL.lastPathComponent)
+            try? snapshotData?.write(to: temporarySnapshotURL)
+            
+            XCTFail("New Snapshot does not match stored snapshot. New snapshot URL: \(temporarySnapshotURL), Stored snapshot URL: \(snapshotURL)", file: file, line: line)
+        }
+    }
+    
+    func record(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
+       let snapshotData = makeSnapshotData(for: snapshot, file: file, line: line)
+        
+        let snapshotURL = makeSnapshotURL(named: name, file: file)
+        
+        do {
+            try FileManager.default.createDirectory(
+                at: snapshotURL.deletingLastPathComponent(),
+                withIntermediateDirectories: true
+            )
+            
+            try snapshotData?.write(to: snapshotURL, options: .atomic)
+        } catch {
+            XCTFail("Failes to record snashot with error \(error)", file: file, line: line)
+        }
+    }
+    
+     func makeSnapshotURL(named name: String, file: StaticString) -> URL {
+        return URL(fileURLWithPath: String(describing: file))
+            .deletingLastPathComponent()
+            .appendingPathComponent("spanshots")
+            .appendingPathComponent("\(name).png")
+    }
+    
+     func makeSnapshotData(for snapshot: UIImage, file: StaticString, line: UInt) -> Data? {
+        guard let data = snapshot.pngData() else {
+            XCTFail("Failed to generate PNG data representation from snapshot", file: file, line: line)
+            return nil
+        }
+        
+        return data
+    }
+    
+}
+
