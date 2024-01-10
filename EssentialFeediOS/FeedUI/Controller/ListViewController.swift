@@ -8,9 +8,6 @@
 import UIKit
 import FeedLoader
 
-public protocol FeedViewControllerDelegate {
-    func didRequestFeedRefresh()
-}
 
 public protocol CellController {
     func view(in: UITableView) -> UITableViewCell
@@ -20,7 +17,7 @@ public protocol CellController {
 
 
 public final class ListViewController: UITableViewController, UITableViewDataSourcePrefetching, ResourceLoadingView, ResourceErrorView {
-    public var delegate: FeedViewControllerDelegate?
+    public var onRefresh: (() -> Void)?
     
     private var loadingControllers = [IndexPath: CellController]()
     
@@ -32,7 +29,7 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        delegate?.didRequestFeedRefresh()
+        onRefresh?()
     }
     
     public func display(_ cellController: [CellController]) {
@@ -56,7 +53,7 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
     
     @IBAction
     private func refresh() {
-        delegate?.didRequestFeedRefresh()
+        onRefresh?()
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -20,8 +20,8 @@ public final class FeedUIComposer {
         let storyboard = UIStoryboard(name: "FeedStoryboard", bundle: bundle)
         
         let feedController = ListViewController.makeWith(
-            delegate: presentationAdapter,
-            title: FeedPresenter.title) 
+            onRefresh: presentationAdapter.loadResource,
+            title: FeedPresenter.title)
         
         let feedPresenter = LoadResourcePresenter(errorView: WeakRefVirtualProxy(feedController), feedLoadingView: WeakRefVirtualProxy(feedController), resourceView: FeedViewAdapter(loader: MainQueueDispatchDecorator(decoratee: imageLoader),
                                                                                                                                                                                       controller: feedController), mapper: FeedPresenter.map)
@@ -72,11 +72,11 @@ extension MainQueueDispatchDecorator: FeedLoader where T == FeedLoader {
 }
 
 private extension ListViewController {
-    static func makeWith(delegate: FeedViewControllerDelegate, title: String) -> ListViewController {
+    static func makeWith(onRefresh: @escaping () -> Void, title: String) -> ListViewController {
         let bundle = Bundle(for: ListViewController.self)
         let storyboard = UIStoryboard(name: "FeedStoryboard", bundle: bundle)
         let feedController = storyboard.instantiateInitialViewController() as! ListViewController
-        feedController.delegate = delegate
+        feedController.onRefresh = onRefresh
         feedController.title = title
         return feedController
     }
@@ -177,12 +177,6 @@ extension LoadResourcePresentationAdapter: FeedImageCellControllerDelegate {
 
     func didCancelImageRequest() {
         cancellable?.cancel()
-    }
-}
-
-extension LoadResourcePresentationAdapter: FeedViewControllerDelegate {
-    func didRequestFeedRefresh() {
-        loadResource()
     }
 }
 
