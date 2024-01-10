@@ -13,13 +13,13 @@ import EssentialFeediOS
 public final class FeedUIComposer {
     private init() {}
     
-    public static func feedComposedWith(loader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> FeedViewController {
+    public static func feedComposedWith(loader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> ListViewController {
         let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: {loader().dispatchOnMainQueue() })
        
-        let bundle = Bundle(for: FeedViewController.self)
+        let bundle = Bundle(for: ListViewController.self)
         let storyboard = UIStoryboard(name: "FeedStoryboard", bundle: bundle)
         
-        let feedController = FeedViewController.makeWith(
+        let feedController = ListViewController.makeWith(
             delegate: presentationAdapter,
             title: FeedPresenter.title) 
         
@@ -71,11 +71,11 @@ extension MainQueueDispatchDecorator: FeedLoader where T == FeedLoader {
     }
 }
 
-private extension FeedViewController {
-    static func makeWith(delegate: FeedViewControllerDelegate, title: String) -> FeedViewController {
-        let bundle = Bundle(for: FeedViewController.self)
+private extension ListViewController {
+    static func makeWith(delegate: FeedViewControllerDelegate, title: String) -> ListViewController {
+        let bundle = Bundle(for: ListViewController.self)
         let storyboard = UIStoryboard(name: "FeedStoryboard", bundle: bundle)
-        let feedController = storyboard.instantiateInitialViewController() as! FeedViewController
+        let feedController = storyboard.instantiateInitialViewController() as! ListViewController
         feedController.delegate = delegate
         feedController.title = title
         return feedController
@@ -109,10 +109,10 @@ extension WeakRefVirtualProxy: ResourceErrorView where T: ResourceErrorView {
 }
 
 private final class FeedViewAdapter: ResourceView {
-    private weak var controller: FeedViewController?
+    private weak var controller: ListViewController?
     private let imageLoader: FeedImageDataLoader
     
-    init(loader: FeedImageDataLoader, controller: FeedViewController) {
+    init(loader: FeedImageDataLoader, controller: ListViewController) {
         self.imageLoader = loader
         self.controller = controller
     }

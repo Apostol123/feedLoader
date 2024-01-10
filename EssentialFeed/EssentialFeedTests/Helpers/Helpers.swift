@@ -17,7 +17,7 @@ extension XCTestCase {
         UIImage.make(withColor: .red).pngData()!
     }
     
-     func assertThat(_ sut: FeedViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line) {
+     func assertThat(_ sut: ListViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line) {
          sut.tableView.layoutIfNeeded()
         guard sut.numberOFRenderedFeedImageViews() == feed.count else {
             return XCTFail("Expected \(feed.count) images, got \(sut.numberOFRenderedFeedImageViews()) instead", file: file, line: line)
@@ -28,7 +28,7 @@ extension XCTestCase {
         }
     }
     
-     func assertThat(_ sut: FeedViewController, hasViewConfiguredFor image: FeedImage, at index: Int, file: StaticString = #file, line: UInt = #line) {
+     func assertThat(_ sut: ListViewController, hasViewConfiguredFor image: FeedImage, at index: Int, file: StaticString = #file, line: UInt = #line) {
         let view = sut.feedImageView(at: index)
         
         guard let cell = view as? FeedImageCell else {
@@ -45,7 +45,7 @@ extension XCTestCase {
         XCTAssertEqual(cell.descriptionText, image.description)
     }
     
-     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedViewController, LoadResult: LoaderSpy) {
+     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, LoadResult: LoaderSpy) {
         let loader = LoaderSpy()
          let sut = FeedUIComposer.feedComposedWith(loader: loader.loadPublisher, imageLoader: loader)
         
@@ -110,7 +110,7 @@ extension XCTestCase {
 
 }
 
- extension FeedViewController {
+ extension ListViewController {
     func simulateUserInitiatedFeedReload() {
         refreshControl?.simulatePullToRefresh()
     }
