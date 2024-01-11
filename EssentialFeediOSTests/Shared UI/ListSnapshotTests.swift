@@ -41,7 +41,7 @@ final class ListSnapshotTests: XCTestCase {
     }
     
     private func comments() -> [CellController] {
-        emptyFeed().map({CellController($0)})
+        emptyFeed().map({CellController(id: UUID(), dataSource: $0)})
     }
     
     private func emptyFeed() ->  [ImageCommentCellController] {

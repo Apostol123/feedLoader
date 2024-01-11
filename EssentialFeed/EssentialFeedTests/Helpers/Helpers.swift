@@ -120,7 +120,7 @@ extension XCTestCase {
     }
     
     func numberOFRenderedFeedImageViews() -> Int {
-        return tableView.numberOfRows(inSection: feedImageSection)
+        return tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: feedImageSection)
     }
     
     private var feedImageSection: Int {

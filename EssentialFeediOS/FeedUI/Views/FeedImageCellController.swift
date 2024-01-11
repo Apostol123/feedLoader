@@ -54,6 +54,10 @@ extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, U
         delegate.didRequestImage()
     }
     
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        delegate.didRequestImage()
+    }
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }

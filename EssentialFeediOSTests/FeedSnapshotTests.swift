@@ -153,7 +153,7 @@ private extension ListViewController {
         let cells: [CellController] = stubs.map { stub in
             let cellControllers = FeedImageCellController(viewModel: stub.viewModel, delegate: stub)
             stub.controller = cellControllers
-            return CellController(cellControllers)
+            return CellController(id: UUID(), cellControllers)
         }
         display(cells)
     }
