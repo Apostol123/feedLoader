@@ -149,10 +149,10 @@ private final class SnapshotWindows: UIWindow {
 
 private extension ListViewController {
     func display(_ stubs: [ImageStub]) {
-        let cells: [FeedImageCellController] = stubs.map { stub in
+        let cells: [CellController] = stubs.map { stub in
             let cellControllers = FeedImageCellController(viewModel: stub.viewModel, delegate: stub)
             stub.controller = cellControllers
-            return cellControllers
+            return CellController(cellControllers)
         }
         display(cells)
     }
