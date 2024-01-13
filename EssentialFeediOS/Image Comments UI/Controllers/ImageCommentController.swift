@@ -11,7 +11,7 @@ import FeedLoader
 public class ImageCommentCellController: NSObject, UITableViewDataSource {
     private let model: ImageCommentViewModel
     
-    init(model: ImageCommentViewModel) {
+   public init(model: ImageCommentViewModel) {
         self.model = model
     }
     

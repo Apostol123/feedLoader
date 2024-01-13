@@ -25,7 +25,7 @@ public final class FeedUIComposer {
         
         let feedPresenter = LoadResourcePresenter(
             errorView: WeakRefVirtualProxy(feedController),
-            feedLoadingView: WeakRefVirtualProxy(feedController),
+            loadingView: WeakRefVirtualProxy(feedController),
             resourceView: FeedViewAdapter(loader: imageLoader,
                                           controller: feedController),
             mapper: FeedPresenter.map
@@ -41,29 +41,28 @@ public final class FeedUIComposer {
 public final class CommentsUIComposer {
     private init() {}
     
-    public static func commentsComposedWith(loader: @escaping () -> FeedLoader.Publisher) -> ListViewController {
-        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: {loader().dispatchOnMainQueue() })
+    public static func commentsComposedWith(loader: @escaping () -> AnyPublisher<[ImageComments], Error>) -> ListViewController {
+        let presentationAdapter = LoadResourcePresentationAdapter<[ImageComments], CommentsViewAdapter>(loader: {loader().dispatchOnMainQueue() })
        
         
         
-        let feedController = ListViewController.makeWith(
+        let commentViewController = ListViewController.makeWithCommentsVC(
             onRefresh: presentationAdapter.loadResource,
             title: ImageCommentsPresenter.title)
         
         let feedPresenter = LoadResourcePresenter(
-            errorView: WeakRefVirtualProxy(feedController),
-            feedLoadingView: WeakRefVirtualProxy(feedController),
-            resourceView: FeedViewAdapter(
-                loader: {_ in Empty<Data, Error>().eraseToAnyPublisher()},
-                controller: feedController
+            errorView: WeakRefVirtualProxy(commentViewController),
+            loadingView: WeakRefVirtualProxy(commentViewController),
+            resourceView: CommentsViewAdapter(
+                controller: commentViewController
             ),
-            mapper: FeedPresenter.map
+            mapper: {ImageCommentsPresenter.map($0)}
         )
         
         presentationAdapter.presenter = feedPresenter
         
         
-        return feedController
+        return commentViewController
     }
 }
 
@@ -109,6 +108,15 @@ private extension ListViewController {
     static func makeWith(onRefresh: @escaping () -> Void, title: String) -> ListViewController {
         let bundle = Bundle(for: ListViewController.self)
         let storyboard = UIStoryboard(name: "FeedStoryboard", bundle: bundle)
+        let feedController = storyboard.instantiateInitialViewController() as! ListViewController
+        feedController.onRefresh = onRefresh
+        feedController.title = title
+        return feedController
+    }
+    
+    static func makeWithCommentsVC(onRefresh: @escaping () -> Void, title: String) -> ListViewController {
+        let bundle = Bundle(for: ListViewController.self)
+        let storyboard = UIStoryboard(name: "ImageComments", bundle: bundle)
         let feedController = storyboard.instantiateInitialViewController() as! ListViewController
         feedController.onRefresh = onRefresh
         feedController.title = title
@@ -162,7 +170,7 @@ private final class FeedViewAdapter: ResourceView {
 
                         adapter.presenter = LoadResourcePresenter(
                             errorView: WeakRefVirtualProxy(view),
-                            feedLoadingView: WeakRefVirtualProxy(view),
+                            loadingView: WeakRefVirtualProxy(view),
                             resourceView: WeakRefVirtualProxy(view),
                             mapper: { data in
                                 guard let image = UIImage(data: data) else {
@@ -216,3 +224,17 @@ extension LoadResourcePresentationAdapter: FeedImageCellControllerDelegate {
     }
 }
 
+
+private final class CommentsViewAdapter: ResourceView {
+    private weak var controller: ListViewController?
+    
+    init(controller: ListViewController) {
+        self.controller = controller
+    }
+    
+    func display(_ viewModel: ImageCommentsViewModel) {
+        controller?.display(viewModel.comments.map({ viewModel in
+            CellController(id: viewModel, dataSource: ImageCommentCellController(model: viewModel))
+        }))
+    }
+}

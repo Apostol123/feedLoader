@@ -19,9 +19,9 @@ public final class LoadResourcePresenter<Resource, View: ResourceView> {
     private let resourceView: View
     private let mapper: Mapper
     
-    public init(errorView: ResourceErrorView, feedLoadingView: ResourceLoadingView, resourceView: View, mapper: @escaping Mapper) {
+    public init(errorView: ResourceErrorView, loadingView: ResourceLoadingView, resourceView: View, mapper: @escaping Mapper) {
         self.errorView = errorView
-        self.feedLoadingView = feedLoadingView
+        self.feedLoadingView = loadingView
         self.resourceView = resourceView
         self.mapper = mapper
     }
