@@ -9,6 +9,7 @@ import XCTest
 import FeedLoader
 @testable import EssentialFeediOS
 @testable import EssentialFeed
+import Combine
 
 final class CommentUIIntegrationTests: XCTestCase {
     func test_CommentsView_hasTitle() {
@@ -46,20 +47,20 @@ final class CommentUIIntegrationTests: XCTestCase {
         
     }
     
-    func test_loadFeedActions_requestFeedFromLoader() {
+    func test_loadCommentsactions_requestCommentsromLoader() {
         let (sut, loader) = makeCommentsSUT()
-        XCTAssertEqual(loader.feedLoadCallCount, 0)
+        XCTAssertEqual(loader.loadCommentsCallCount, 0)
         
         sut.loadViewIfNeeded()
-        XCTAssertEqual(loader.feedLoadCallCount, 1)
+        XCTAssertEqual(loader.loadCommentsCallCount, 1)
         
         sut.loadViewIfNeeded()
         
-        sut.simulateUserInitiatedFeedReload()
-        XCTAssertEqual(loader.feedLoadCallCount, 2)
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadCommentsCallCount, 2)
         
-        sut.simulateUserInitiatedFeedReload()
-        XCTAssertEqual(loader.feedLoadCallCount, 3)
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadCommentsCallCount, 3)
     }
     
     func test_viewDidLoad_showsLoadingIndicator() {
@@ -95,7 +96,7 @@ final class CommentUIIntegrationTests: XCTestCase {
         loader.completeFeedLoading(with: [image0], at: 0)
         assertThat(sut, isRendering: [image0])
         
-        sut.simulateUserInitiatedFeedReload()
+        sut.simulateUserInitiatedReload()
         loader.completeFeedLoading(with: [image0, image1, image2, image3], at: 1)
         assertThat(sut, isRendering: [image0, image1, image2, image3])
     }
@@ -109,7 +110,7 @@ final class CommentUIIntegrationTests: XCTestCase {
         loader.completeFeedLoading(with: [image0, image1], at: 0)
         assertThat(sut, isRendering: [image0, image1])
         
-        sut.simulateUserInitiatedFeedReload()
+        sut.simulateUserInitiatedReload()
         loader.completeFeedLoading(with: [], at: 1)
         assertThat(sut, isRendering: [])
     }
@@ -123,7 +124,7 @@ final class CommentUIIntegrationTests: XCTestCase {
         loader.completeFeedLoading(with: [image0], at: 0)
         assertThat(sut, isRendering: [image0])
         
-        sut.simulateUserInitiatedFeedReload()
+        sut.simulateUserInitiatedReload()
         
         loader.completeFeedLoadingWithError(at: 1)
         
@@ -146,8 +147,8 @@ final class CommentUIIntegrationTests: XCTestCase {
 //        XCTAssertFalse(sut.isShowingLoadingIndicator)
     }
     
-    func makeCommentsSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, LoadResult: LoaderSpy) {
-       let loader = LoaderSpy()
+    func makeCommentsSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, LoadResult: CommentsLoaderSpy) {
+       let loader = CommentsLoaderSpy()
         let sut = CommentsUIComposer.commentsComposedWith(loader: loader.loadPublisher)
        
        trackForMemoryLeaks(loader, file: file, line: line)
@@ -163,5 +164,61 @@ final class CommentUIIntegrationTests: XCTestCase {
 extension CommentUIIntegrationTests {
     var commentsTitle: String {
         ImageCommentsPresenter.title
+    }
+}
+
+
+class CommentsLoaderSpy {
+    
+    private var requests = [PassthroughSubject<[FeedImage], Error>]()
+
+    var loadCommentsCallCount: Int {
+        return requests.count
+    }
+
+    func loadPublisher() -> AnyPublisher<[FeedImage], Error> {
+        let publisher = PassthroughSubject<[FeedImage], Error>()
+        requests.append(publisher)
+        return publisher.eraseToAnyPublisher()
+    }
+
+    func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
+        requests[index].send(feed)
+    }
+
+    func completeFeedLoadingWithError(at index: Int = 0) {
+        let error = NSError(domain: "an error", code: 0)
+        requests[index].send(completion: .failure(error))
+    }
+
+    // MARK: - FeedImageDataLoader
+
+    private struct TaskSpy: FeedImageDataLoaderTask {
+        let cancelCallback: () -> Void
+        func cancel() {
+            cancelCallback()
+        }
+    }
+
+    private var imageRequests = [(url: URL, completion: (FeedImageDataLoader.Result) -> Void)]()
+
+    var loadedImageURLs: [URL] {
+        return imageRequests.map { $0.url }
+    }
+
+    private(set) var cancelledImageURLs = [URL]()
+
+    func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
+        imageRequests.append((url, completion))
+        return TaskSpy { [weak self] in self?.cancelledImageURLs.append(url) }
+    }
+
+    func completeImageLoading(with imageData: Data = Data(), at index: Int = 0) {
+        imageRequests[index].completion(.success(imageData))
+    }
+
+    func completeImageLoadingWithError(at index: Int = 0) {
+        let error = NSError(domain: "an error", code: 0)
+        imageRequests[index].completion(.failure(error))
     }
 }
