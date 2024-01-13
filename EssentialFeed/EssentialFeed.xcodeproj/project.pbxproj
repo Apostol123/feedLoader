@@ -34,6 +34,7 @@
 		CBBC34362B1F8041002B237E /* FeedUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBC34352B1F8041002B237E /* FeedUIComposer.swift */; };
 		CBBC34382B1F8057002B237E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBC34372B1F8057002B237E /* Helpers.swift */; };
 		CBBC343A2B1F80D8002B237E /* FeedUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBC34392B1F80D8002B237E /* FeedUIIntegrationTests.swift */; };
+		CBF663D22B53142A009571C8 /* CommentUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF663D12B53142A009571C8 /* CommentUIIntegrationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		CBBC34352B1F8041002B237E /* FeedUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIComposer.swift; sourceTree = "<group>"; };
 		CBBC34372B1F8057002B237E /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		CBBC34392B1F80D8002B237E /* FeedUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIIntegrationTests.swift; sourceTree = "<group>"; };
+		CBF663D12B53142A009571C8 /* CommentUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUIIntegrationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				CBA28B8A2B04980E00D3BD25 /* FeedImageDataLoaderWithFallbackCompositeTests.swift */,
 				CB29CADF2B0DCF5400A12B6F /* FeedLoaderCacheDecoratorTests.swift */,
 				CBBC34292B1F793E002B237E /* SceneDelegateTests.swift */,
+				CBF663D12B53142A009571C8 /* CommentUIIntegrationTests.swift */,
 			);
 			path = EssentialFeedTests;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				CBA28B8F2B05E8F600D3BD25 /* XCTestCase+MemoryLeak.swift in Sources */,
 				CB29CAE22B0DD1E000A12B6F /* FeedLoaderStub.swift in Sources */,
 				CBA28B872B03462200D3BD25 /* RemoteWithLocalFallbackFeedLoaderTests.swift in Sources */,
+				CBF663D22B53142A009571C8 /* CommentUIIntegrationTests.swift in Sources */,
 				CBBC342A2B1F793E002B237E /* SceneDelegateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

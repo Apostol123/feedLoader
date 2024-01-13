@@ -8,6 +8,7 @@ import UIKit
 import XCTest
 import FeedLoader
 import EssentialFeed
+import Combine
 @testable import EssentialFeediOS
 
 extension XCTestCase {
@@ -47,7 +48,7 @@ extension XCTestCase {
     
      func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, LoadResult: LoaderSpy) {
         let loader = LoaderSpy()
-         let sut = FeedUIComposer.feedComposedWith(loader: loader.loadPublisher, imageLoader: loader)
+         let sut = FeedUIComposer.feedComposedWith(loader: loader.loadPublisher, imageLoader: loader.loadImageDataPublisher)
         
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)

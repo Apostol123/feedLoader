@@ -15,8 +15,8 @@ public final class LocalFeedImageDataLoader {
     }
 }
 
-extension LocalFeedImageDataLoader: FeedImageCache {
-    public typealias SaveResult = Result<Void, Error>
+extension LocalFeedImageDataLoader: FeedImageDataCache {
+    public typealias SaveResult = FeedImageDataCache.Result
 
     public enum SaveError: Error {
         case failed
@@ -72,4 +72,10 @@ extension LocalFeedImageDataLoader: FeedImageDataLoader {
         }
         return task
     }
+}
+
+public protocol FeedImageDataCache {
+    typealias Result = Swift.Result<Void, Error>
+
+    func save(_ data: Data, for url: URL, completion: @escaping (Result) -> Void)
 }

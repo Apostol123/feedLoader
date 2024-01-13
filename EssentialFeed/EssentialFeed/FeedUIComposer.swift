@@ -13,7 +13,7 @@ import EssentialFeediOS
 public final class FeedUIComposer {
     private init() {}
     
-    public static func feedComposedWith(loader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> ListViewController {
+    public static func feedComposedWith(loader: @escaping () -> FeedLoader.Publisher, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
         let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: {loader().dispatchOnMainQueue() })
        
         let bundle = Bundle(for: ListViewController.self)
@@ -23,8 +23,42 @@ public final class FeedUIComposer {
             onRefresh: presentationAdapter.loadResource,
             title: FeedPresenter.title)
         
-        let feedPresenter = LoadResourcePresenter(errorView: WeakRefVirtualProxy(feedController), feedLoadingView: WeakRefVirtualProxy(feedController), resourceView: FeedViewAdapter(loader: MainQueueDispatchDecorator(decoratee: imageLoader),
-                                                                                                                                                                                      controller: feedController), mapper: FeedPresenter.map)
+        let feedPresenter = LoadResourcePresenter(
+            errorView: WeakRefVirtualProxy(feedController),
+            feedLoadingView: WeakRefVirtualProxy(feedController),
+            resourceView: FeedViewAdapter(loader: imageLoader,
+                                          controller: feedController),
+            mapper: FeedPresenter.map
+        )
+        
+        presentationAdapter.presenter = feedPresenter
+        
+        
+        return feedController
+    }
+}
+
+public final class CommentsUIComposer {
+    private init() {}
+    
+    public static func commentsComposedWith(loader: @escaping () -> FeedLoader.Publisher) -> ListViewController {
+        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: {loader().dispatchOnMainQueue() })
+       
+        
+        
+        let feedController = ListViewController.makeWith(
+            onRefresh: presentationAdapter.loadResource,
+            title: FeedPresenter.title)
+        
+        let feedPresenter = LoadResourcePresenter(
+            errorView: WeakRefVirtualProxy(feedController),
+            feedLoadingView: WeakRefVirtualProxy(feedController),
+            resourceView: FeedViewAdapter(
+                loader: {_ in Empty<Data, Error>().eraseToAnyPublisher()},
+                controller: feedController
+            ),
+            mapper: FeedPresenter.map
+        )
         
         presentationAdapter.presenter = feedPresenter
         
@@ -110,9 +144,9 @@ extension WeakRefVirtualProxy: ResourceErrorView where T: ResourceErrorView {
 
 private final class FeedViewAdapter: ResourceView {
     private weak var controller: ListViewController?
-    private let imageLoader: FeedImageDataLoader
+    private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
     
-    init(loader: FeedImageDataLoader, controller: ListViewController) {
+    init(loader: @escaping (URL) -> FeedImageDataLoader.Publisher, controller: ListViewController) {
         self.imageLoader = loader
         self.controller = controller
     }
@@ -120,7 +154,7 @@ private final class FeedViewAdapter: ResourceView {
     func display(_ viewModel: FeedViewModel) {
         controller?.display( viewModel.feed.map { model in
             let adapter = LoadResourcePresentationAdapter<Data,WeakRefVirtualProxy<FeedImageCellController>>(loader: { [imageLoader] in
-                imageLoader.load(from: model.url)
+                imageLoader(model.url)
             })
                         let view = FeedImageCellController(
                             viewModel: FeedImagePresenter.map(model),
@@ -157,7 +191,9 @@ private final class LoadResourcePresentationAdapter<Resource, View: ResourceView
     func loadResource() {
         presenter?.didStarLoading()
         
-        cancellable = loader().sink { [weak self] completion in
+        cancellable = loader()
+            .dispatchOnMainQueue()
+            .sink { [weak self] completion in
             switch completion {
             case .finished: break
             case .failure(let error):
