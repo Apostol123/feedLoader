@@ -48,7 +48,7 @@ public final class CommentsUIComposer {
         
         let feedController = ListViewController.makeWith(
             onRefresh: presentationAdapter.loadResource,
-            title: FeedPresenter.title)
+            title: ImageCommentsPresenter.title)
         
         let feedPresenter = LoadResourcePresenter(
             errorView: WeakRefVirtualProxy(feedController),

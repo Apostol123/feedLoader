@@ -11,12 +11,12 @@ import FeedLoader
 @testable import EssentialFeed
 
 final class CommentUIIntegrationTests: XCTestCase {
-    func test_feedView_hasTitle() {
+    func test_CommentsView_hasTitle() {
         let (sut, _) = makeCommentsSUT()
         
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(sut.title, localized("FEED_VIEW_TITLE"))
+        XCTAssertEqual(sut.title, commentsTitle)
     }
     
     private func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
@@ -158,4 +158,10 @@ final class CommentUIIntegrationTests: XCTestCase {
     
     
 
+}
+
+extension CommentUIIntegrationTests {
+    var commentsTitle: String {
+        ImageCommentsPresenter.title
+    }
 }
