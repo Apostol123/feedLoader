@@ -11,17 +11,20 @@ import FeedLoader
 public protocol FeedImageCellControllerDelegate {
     func didRequestImage()
     func didCancelImageRequest()
+    
 }
 
 public final class FeedImageCellController: NSObject {
     public typealias ResourceViewModel = UIImage
     private let delegate: FeedImageCellControllerDelegate
     private var cell: FeedImageCell?
+    private let selection: () -> Void
     private let viewModel: FeedImageViewModel
     
-    public init(viewModel: FeedImageViewModel,  delegate: FeedImageCellControllerDelegate) {
+    public init(viewModel: FeedImageViewModel,  delegate: FeedImageCellControllerDelegate, selection: @escaping () -> Void) {
         self.delegate = delegate
         self.viewModel = viewModel
+        self.selection = selection
     }
 }
 
@@ -50,6 +53,11 @@ extension FeedImageCellController: ResourceView, ResourceLoadingView, ResourceEr
 }
 
 extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selection()
+    }
+    
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         delegate.didRequestImage()
     }

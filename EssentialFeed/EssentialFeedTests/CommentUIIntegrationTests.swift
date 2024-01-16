@@ -115,6 +115,28 @@ final class CommentUIIntegrationTests: XCTestCase {
         assertThat(sut, isRendering: [comment])
     }
     
+    func test_deinit_cancelsRunningRequest() {
+        var cancelCallCount = 0
+        var sut: ListViewController?
+        autoreleasepool {
+             sut = CommentsUIComposer.commentsComposedWith {
+                PassthroughSubject<[ImageComments], Error>()
+                    .handleEvents(receiveRequest:  {_ in
+                        cancelCallCount += 1
+                    }).eraseToAnyPublisher()
+            }
+            sut?.loadViewIfNeeded()
+        }
+        
+        weak var weakSut = sut
+        XCTAssertEqual(cancelCallCount, 0)
+        
+        
+        sut = nil
+        XCTAssertNil(weakSut)
+        XCTAssertEqual(cancelCallCount, 1)
+    }
+    
     func test_loadingFeedIndicator_isVisibleWhileLoadingFeed() {
         let (sut, loader) = makeCommentsSUT()
         

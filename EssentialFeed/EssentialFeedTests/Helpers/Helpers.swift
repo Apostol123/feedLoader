@@ -46,9 +46,17 @@ extension XCTestCase {
         XCTAssertEqual(cell.descriptionText, image.description)
     }
     
-     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, LoadResult: LoaderSpy) {
+    func makeSUT(
+        selection: @escaping (FeedImage) -> Void = {_ in },
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> (sut: ListViewController, LoadResult: LoaderSpy) {
         let loader = LoaderSpy()
-         let sut = FeedUIComposer.feedComposedWith(loader: loader.loadPublisher, imageLoader: loader.loadImageDataPublisher)
+        let sut = FeedUIComposer.feedComposedWith(
+            loader: loader.loadPublisher,
+            imageLoader: loader.loadImageDataPublisher,
+            selection: selection
+        )
         
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -112,6 +120,12 @@ extension XCTestCase {
 }
 
  extension ListViewController {
+     func simulateTapOnFeedImage(at row: Int) {
+         let delegate = tableView.delegate
+         let index = IndexPath(row: row, section: feedImageSection)
+         delegate?.tableView?(tableView, didSelectRowAt: index)
+     }
+     
     func simulateUserInitiatedReload() {
         refreshControl?.simulatePullToRefresh()
     }

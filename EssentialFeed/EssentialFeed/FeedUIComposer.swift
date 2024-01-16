@@ -13,7 +13,7 @@ import EssentialFeediOS
 public final class FeedUIComposer {
     private init() {}
     
-    public static func feedComposedWith(loader: @escaping () -> FeedLoader.Publisher, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
+    public static func feedComposedWith(loader: @escaping () -> FeedLoader.Publisher, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher, selection: @escaping (FeedImage) -> Void = {_ in }) -> ListViewController {
         let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: {loader().dispatchOnMainQueue() })
        
         let bundle = Bundle(for: ListViewController.self)
@@ -27,7 +27,8 @@ public final class FeedUIComposer {
             errorView: WeakRefVirtualProxy(feedController),
             loadingView: WeakRefVirtualProxy(feedController),
             resourceView: FeedViewAdapter(loader: imageLoader,
-                                          controller: feedController),
+                                          controller: feedController,
+                                          selection: selection),
             mapper: FeedPresenter.map
         )
         
@@ -153,10 +154,12 @@ extension WeakRefVirtualProxy: ResourceErrorView where T: ResourceErrorView {
 private final class FeedViewAdapter: ResourceView {
     private weak var controller: ListViewController?
     private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
+    private let selection: (FeedImage) -> Void
     
-    init(loader: @escaping (URL) -> FeedImageDataLoader.Publisher, controller: ListViewController) {
+    init(loader: @escaping (URL) -> FeedImageDataLoader.Publisher, controller: ListViewController, selection: @escaping (FeedImage) -> Void) {
         self.imageLoader = loader
         self.controller = controller
+        self.selection = selection
     }
     
     func display(_ viewModel: FeedViewModel) {
@@ -166,7 +169,10 @@ private final class FeedViewAdapter: ResourceView {
             })
                         let view = FeedImageCellController(
                             viewModel: FeedImagePresenter.map(model),
-                            delegate: adapter)
+                            delegate: adapter,
+                            selection: { [selection] in
+                                selection(model)
+                            })
 
                         adapter.presenter = LoadResourcePresenter(
                             errorView: WeakRefVirtualProxy(view),

@@ -65,6 +65,11 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
         onRefresh?()
     }
     
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dl = cellControllerForRow(forRowAt: indexPath)?.delegate
+        dl?.tableView?(tableView, didSelectRowAt: indexPath)
+    }
+    
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let controller = cellControllerForRow(forRowAt: indexPath)?.delegate
         controller?.tableView?(tableView, didEndDisplaying: cell, forRowAt: indexPath)
