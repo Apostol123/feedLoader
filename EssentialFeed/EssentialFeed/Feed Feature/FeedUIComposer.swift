@@ -20,7 +20,6 @@ public final class FeedUIComposer {
         selection: @escaping (FeedImage) -> Void = {_ in }
     ) -> ListViewController {
         let presentationAdapter = FeedPresentationAdapter(loader: loader)
-        let bundle = Bundle(for: ListViewController.self)
         
         let feedController = ListViewController.makeWith(
             onRefresh: presentationAdapter.loadResource,
@@ -98,6 +97,7 @@ private final class FeedViewAdapter: ResourceView {
     private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
     private let selection: (FeedImage) -> Void
     private typealias ImageDataPresentationAdapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>
+    private typealias LoadMorePresentationAdapter = LoadResourcePresentationAdapter<Paginated<FeedImage>, FeedViewAdapter>
     
     init(loader: @escaping (URL) -> FeedImageDataLoader.Publisher, controller: ListViewController, selection: @escaping (FeedImage) -> Void) {
         self.imageLoader = loader
@@ -126,10 +126,22 @@ private final class FeedViewAdapter: ResourceView {
 
             return CellController(id: model, view)
         }
-
-        let loadMore = LoadMoreCellController {
-            viewModel.loadMore?({ _ in })
+        
+        guard let loadMorePublisher = viewModel.loadMorePublisher else {
+            controller?.display(feed)
+            return
         }
+        
+        let loadMoreAdapter = LoadMorePresentationAdapter(loader: loadMorePublisher)
+        
+        let loadMore = LoadMoreCellController(callback: loadMoreAdapter.loadResource)
+        
+        loadMoreAdapter.presenter = LoadResourcePresenter(
+            errorView: WeakRefVirtualProxy(loadMore),
+            loadingView: WeakRefVirtualProxy(loadMore),
+            resourceView: self,
+            mapper: { $0 })
+
 
         let loadMoreSection = [CellController(id: UUID(), loadMore)]
         controller?.display(feed, loadMoreSection)
@@ -147,5 +159,17 @@ extension UIImage {
             throw InvalidImageData()
         }
         return image
+    }
+}
+
+public extension Paginated {
+    var loadMorePublisher: (() -> AnyPublisher<Self, Error>)? {
+        guard let loadMore = loadMore else { return nil }
+        
+        return {
+            Deferred {
+                Future(loadMore)
+            }.eraseToAnyPublisher()
+        }
     }
 }
