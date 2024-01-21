@@ -13,68 +13,59 @@ import EssentialFeediOS
 import EssentialFeedAPI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    
     var window: UIWindow?
-    let localStoreURL = NSPersistentContainer
-        .defaultDirectoryURL()
-        .appendingPathComponent("feed-store-sqlite")
-    
+
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }()
-    
-    private lazy var baseURL = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed")!
-    
-    private lazy var  navigationController: UINavigationController = UINavigationController(rootViewController:  FeedUIComposer.feedComposedWith(
-        loader: makeRemoteFeedLoaderWithLocalFallback,
-        imageLoader: makeLocalImageLoaderWithRemoteFallback,
-        selection: { [weak self] feedImage in
-            self?.showComments(for: feedImage)
-        })
-    )
-    
+
     private lazy var store: FeedStore & FeedImageDataStore = {
-        try! CoreDataFeedStore(storeURL: localStoreURL)
+        try! CoreDataFeedStore(
+            storeURL: NSPersistentContainer
+                .defaultDirectoryURL()
+                .appendingPathComponent("feed-store.sqlite"))
     }()
-    
+
     private lazy var localFeedLoader: LocalFeedLoader = {
         LocalFeedLoader(store: store, currentDate: Date.init)
     }()
-    let url = URL(string: "https://static1.squarespace.com/static/5891c5b8d1758ec68ef5dbc2/t/5db4155a4fbade21d17ecd28/1572083034355/essential_app_feed.json")!
-    
-    
-    
+
+    private lazy var baseURL = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed")!
+
+    private lazy var navigationController = UINavigationController(
+        rootViewController: FeedUIComposer.feedComposedWith(
+            loader: makeRemoteFeedLoaderWithLocalFallback,
+            imageLoader: makeLocalImageLoaderWithRemoteFallback,
+            selection: showComments))
+
     convenience init(httpClient: HTTPClient, store: FeedStore & FeedImageDataStore) {
         self.init()
         self.httpClient = httpClient
         self.store = store
     }
-    
-    func sceneWillResignActive(_ scene: UIScene) {
-        localFeedLoader.validateCache(completion: {_ in })
-    }
-    
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
+
         window = UIWindow(windowScene: scene)
         configureWindow()
     }
-    
+
     func configureWindow() {
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
-    
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        localFeedLoader.validateCache { _ in }
+    }
+
     private func showComments(for image: FeedImage) {
         let url = baseURL.appendingPathComponent("v1/image/\(image.id)/comments")
         let comments = CommentsUIComposer.commentsComposedWith(loader: makeRemoteCommentsLoader(url: url))
         navigationController.pushViewController(comments, animated: true)
     }
-    
-    
+
     private func makeRemoteCommentsLoader(url: URL) -> () -> AnyPublisher<[ImageComments], Error> {
         { [httpClient] in
             return httpClient
@@ -83,19 +74,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 .eraseToAnyPublisher()
         }
     }
-    
-    private func makeRemoteFeedLoaderWithLocalFallback() -> FeedLoader.Publisher {
-        let url = URL(string: "https://static1.squarespace.com/static/5891c5b8d1758ec68ef5dbc2/t/5db4155a4fbade21d17ecd28/1572083034355/essential_app_feed.json")!
-        
-        
-        
+
+    private func makeRemoteFeedLoaderWithLocalFallback() -> AnyPublisher<[FeedImage], Error> {
+        let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
+
         return httpClient
             .getPublisher(url: url)
             .tryMap(FeedItemsMapper.map)
             .caching(to: localFeedLoader)
             .fallback(to: localFeedLoader.loadPublisher)
     }
-    
+
     private func makeLocalImageLoaderWithRemoteFallback(url: URL) -> FeedImageDataLoader.Publisher {
         let localImageLoader = LocalFeedImageDataLoader(store: store)
 
@@ -109,6 +98,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             })
     }
 }
+
 
 public extension FeedLoader {
     typealias Publisher = AnyPublisher<[FeedImage], Error>

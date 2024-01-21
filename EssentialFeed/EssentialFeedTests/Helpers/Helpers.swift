@@ -11,39 +11,48 @@ import EssentialFeed
 import Combine
 @testable import EssentialFeediOS
 
+
+extension FeedUIIntegrationTests {
+    func assertThat(_ sut: ListViewController, isRendering feed: [FeedImage], file: StaticString = #filePath, line: UInt = #line) {
+        sut.view.enforceLayoutCycle()
+
+        guard sut.numberOfRenderedFeedImageViews() == feed.count else {
+            return XCTFail("Expected \(feed.count) images, got \(sut.numberOfRenderedFeedImageViews()) instead.", file: file, line: line)
+        }
+
+        feed.enumerated().forEach { index, image in
+            assertThat(sut, hasViewConfiguredFor: image, at: index, file: file, line: line)
+        }
+
+        executeRunLoopToCleanUpReferences()
+    }
+
+    func assertThat(_ sut: ListViewController, hasViewConfiguredFor image: FeedImage, at index: Int, file: StaticString = #filePath, line: UInt = #line) {
+        let view = sut.feedImageView(at: index)
+
+        guard let cell = view as? FeedImageCell else {
+            return XCTFail("Expected \(FeedImageCell.self) instance, got \(String(describing: view)) instead", file: file, line: line)
+        }
+
+        let shouldLocationBeVisible = (image.location != nil)
+        XCTAssertEqual(cell.isShowingLocation, shouldLocationBeVisible, "isShowingLocation at index (\(index))", file: file, line: line)
+
+        XCTAssertEqual(cell.locationText, image.location, "location at index (\(index))", file: file, line: line)
+
+        XCTAssertEqual(cell.descriptionText, image.description, "description at index (\(index)", file: file, line: line)
+    }
+
+    private func executeRunLoopToCleanUpReferences() {
+        RunLoop.current.run(until: Date())
+    }
+}
+
+
 extension XCTestCase {
     // MARK: - Helpers
     
      func anyImageData() -> Data {
         UIImage.make(withColor: .red).pngData()!
-    }
-    
-     func assertThat(_ sut: ListViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line) {
-         sut.tableView.layoutIfNeeded()
-        guard sut.numberOFRenderedFeedImageViews() == feed.count else {
-            return XCTFail("Expected \(feed.count) images, got \(sut.numberOFRenderedFeedImageViews()) instead", file: file, line: line)
-        }
-        
-        feed.enumerated().forEach { index, image in
-            assertThat(sut, hasViewConfiguredFor: image, at: index)
-        }
-    }
-    
-     func assertThat(_ sut: ListViewController, hasViewConfiguredFor image: FeedImage, at index: Int, file: StaticString = #file, line: UInt = #line) {
-        let view = sut.feedImageView(at: index)
-        
-        guard let cell = view as? FeedImageCell else {
-            return XCTFail("Expected \(FeedImageCell.self) instance got \(String(describing: view))", file: file, line: line)
-        }
-        
-        let shouldLocationBeVisible = (image.location != nil)
-        XCTAssertEqual(cell.isShowingLocation, shouldLocationBeVisible)
-        
-        XCTAssertEqual(cell.locationText, image.location)
-        
-        XCTAssertEqual(cell.descriptionText, image.description)
-        
-        XCTAssertEqual(cell.descriptionText, image.description)
     }
     
     func makeSUT(
@@ -119,107 +128,7 @@ extension XCTestCase {
 
 }
 
- extension ListViewController {
-     func simulateTapOnFeedImage(at row: Int) {
-         let delegate = tableView.delegate
-         let index = IndexPath(row: row, section: feedImageSection)
-         delegate?.tableView?(tableView, didSelectRowAt: index)
-     }
-     
-    func simulateUserInitiatedReload() {
-        refreshControl?.simulatePullToRefresh()
-    }
-    
-    var isShowingLoadingIndicator: Bool {
-        return refreshControl?.isRefreshing == true
-    }
-    
-    func numberOFRenderedFeedImageViews() -> Int {
-        return tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: feedImageSection)
-    }
-     
-     func numberOFRenderedComments() -> Int {
-         return tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: commentsSection)
-     }
-    
-    private var feedImageSection: Int {
-        return 0
-    }
-     
-     private var commentsSection: Int {
-         return 0
-     }
-    
-    func feedImageView(at row: Int) -> UITableViewCell? {
-        guard numberOFRenderedFeedImageViews() > row else {
-            return nil
-        }
-        let ds = tableView.dataSource
-        let index = IndexPath(row: row, section: feedImageSection)
-        return ds?.tableView(tableView, cellForRowAt: index)
-    }
-    
-    func simulateFeedImageViewNearVisibile(at row: Int) {
-        let ds = tableView.prefetchDataSource
-        let index = IndexPath(row: row, section: feedImageSection)
-        ds?.tableView(tableView, prefetchRowsAt: [index])
-    }
-    
-    func simulateFeedImageViewNotNearVisibile(at row: Int) {
-        simulateFeedImageViewNearVisibile(at: row)
-        
-        let ds = tableView.prefetchDataSource
-        let index = IndexPath(row: row, section: feedImageSection)
-        ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
-    }
-    
-    @discardableResult
-    func simulateFeedImageViewVisible(at index: Int) -> FeedImageCell? {
-        let feedImageCell = feedImageView(at: index)
-        return feedImageCell as? FeedImageCell
-    }
-     
-     func renderedFeedImageData(at index: Int) -> Data? {
-         return simulateFeedImageViewVisible(at: index)?.renderedImage
-     }
-     
-     func commentMessage(at row: Int) -> String? {
-         commentsImageView(at: row)?.messageLabel.text
-     }
-     
-     func commentDate(at row: Int) -> String? {
-         commentsImageView(at: row)?.dateLabel.text
-     }
-     
-     func commentUsername(at row: Int) -> String? {
-         commentsImageView(at: row)?.usernameLabel.text
-     }
-     
-     func commentsImageView(at row: Int) -> ImageCommentsCell? {
-         guard numberOFRenderedComments() > row else {
-             return nil
-         }
-         let ds = tableView.dataSource
-         let index = IndexPath(row: row, section: commentsSection)
-         return ds?.tableView(tableView, cellForRowAt: index) as? ImageCommentsCell
-     }
-    
-    @discardableResult
-    func simulateFeedImageViewNotVisible(at row: Int) -> FeedImageCell? {
-        let view = simulateFeedImageViewVisible(at: row)
-        
-        let delegate = tableView.delegate
-        
-        let index = IndexPath(row: row, section: feedImageSection)
-        
-        delegate?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
-        
-        return view
-    }
-    
-}
-
- extension FeedImageCell {
+extension FeedImageCell {
     var isShowingLocation: Bool {
         return !locationContainer.isHidden
     }
@@ -282,3 +191,9 @@ extension UIButton {
     }
 }
 
+extension UIView {
+    func enforceLayoutCycle() {
+        layoutIfNeeded()
+        RunLoop.current.run(until: Date())
+    }
+}

@@ -17,7 +17,6 @@ public final class FeedUIComposer {
         let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: {loader().dispatchOnMainQueue() })
        
         let bundle = Bundle(for: ListViewController.self)
-        let storyboard = UIStoryboard(name: "FeedStoryboard", bundle: bundle)
         
         let feedController = ListViewController.makeWith(
             onRefresh: presentationAdapter.loadResource,
@@ -240,7 +239,7 @@ private final class CommentsViewAdapter: ResourceView {
     
     func display(_ viewModel: ImageCommentsViewModel) {
         controller?.display(viewModel.comments.map({ viewModel in
-            CellController(id: viewModel, dataSource: ImageCommentCellController(model: viewModel))
+            CellController(id: viewModel, ImageCommentCellController(model: viewModel))
         }))
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedImageCell: UITableViewCell {
+public class FeedImageCell: UITableViewCell {
     @IBOutlet private(set) public var locationContainer: UIView!
     @IBOutlet private(set) public var  locationLabel: UILabel!
     @IBOutlet private(set) public var  descriptionLabel: UILabel!
@@ -17,12 +17,12 @@ class FeedImageCell: UITableViewCell {
     
     var onRetry: (() -> Void)?
 
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    public override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
