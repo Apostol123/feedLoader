@@ -170,8 +170,8 @@ private final class FeedViewAdapter: ResourceView {
                         let view = FeedImageCellController(
                             viewModel: FeedImagePresenter.map(model),
                             delegate: adapter,
-                            selection: { [selection] in
-                                selection(model)
+                            selection: { [weak self] in
+                                self?.selection(model)
                             })
 
                         adapter.presenter = LoadResourcePresenter(
