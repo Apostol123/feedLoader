@@ -40,7 +40,51 @@ final class FeedSnapshotTests: XCTestCase {
         assert(snapshot: sut.snapshot(for: .iPhone(style: .dark)), named: "FEED_WITH_FAILED_IMAGE_LOADING_dark")
     }
     
+    func test_feedWithLoadMoreIndicator() {
+        let sut = makeSUT()
+
+        sut.display(feedWithLoadMoreIndicator())
+
+        assert(snapshot: sut.snapshot(for: .iPhone(style: .light)), named: "FEED_WITH_LOAD_MORE_INDICATOR_light")
+        assert(snapshot: sut.snapshot(for: .iPhone(style: .dark)), named: "FEED_WITH_LOAD_MORE_INDICATOR_dark")
+    }
+
+    func test_feedWithLoadMoreError() {
+        let sut = makeSUT()
+
+        sut.display(feedWithLoadMoreError())
+
+        assert(snapshot: sut.snapshot(for: .iPhone(style: .light)), named: "FEED_WITH_LOAD_MORE_Error_light")
+        assert(snapshot: sut.snapshot(for: .iPhone(style: .dark)), named: "FEED_WITH_LOAD_MORE_Error_dark")
+        assert(snapshot: sut.snapshot(for: .iPhone(style: .dark, contentSize: .extraExtraExtraLarge)), named: "FEED_WITH_LOAD_MORE_Error_dark_extraExtraExtraLarge")
+    }
+    
     //MARK: - Helpers
+    
+    
+    
+    private func feedWithLoadMoreIndicator() -> [CellController] {
+        let loadMore = LoadMoreCellController(callback: {})
+        loadMore.display(ResourceLoadingViewModel(isLoading: true))
+        return feedWith(loadMore: loadMore)
+    }
+
+    private func feedWithLoadMoreError() -> [CellController] {
+        let loadMore = LoadMoreCellController(callback: {})
+        loadMore.display(ResourceErrorViewModel(message: "This is a multiline\nerror message"))
+        return feedWith(loadMore: loadMore)
+    }
+
+    private func feedWith(loadMore: LoadMoreCellController) -> [CellController] {
+        let stub = feedWithContent().first!
+        let cellController = FeedImageCellController(viewModel: stub.viewModel, delegate: stub, selection: {})
+        stub.controller = cellController
+
+        return [
+            CellController(id: UUID(), cellController),
+            CellController(id: UUID(), loadMore)
+        ]
+    }
     
     private func makeSUT() -> ListViewController {
         let bundle = Bundle(for: ListViewController.self)
