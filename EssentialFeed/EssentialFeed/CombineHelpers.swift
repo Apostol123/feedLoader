@@ -53,6 +53,22 @@ extension Publisher where Output == [FeedImage] {
     }
 }
 
+extension Publisher where Output == Paginated<FeedImage> {
+    func caching(to cache: FeedCache) -> AnyPublisher<Output, Failure> {
+        handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
+    }
+}
+
+extension FeedCache {
+    func saveIgnoringResult(_ feedImage: [FeedImage]) {
+        self.save(feedImage, completion: {_ in})
+    }
+    
+    func saveIgnoringResult(_ page: Paginated<FeedImage>) {
+        self.save(page.items, completion: {_ in})
+    }
+}
+
 extension Publisher {
     func fallback(to fallbackPublisher: @escaping () -> AnyPublisher<Output, Failure>) -> AnyPublisher<Output, Failure> {
         self.catch {_ in fallbackPublisher()}.eraseToAnyPublisher()

@@ -27,8 +27,3 @@ public final class FeedloaderCacheDecorator: FeedLoader {
     }
 }
 
-extension FeedCache {
-    func saveIgnoringResult(_ feedImage: [FeedImage]) {
-        self.save(feedImage, completion: {_ in})
-    }
-}
