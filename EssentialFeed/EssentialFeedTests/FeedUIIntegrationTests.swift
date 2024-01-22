@@ -144,6 +144,8 @@ class FeedUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.isShowingLoadingIndicator, false)
     }
     
+    
+    
     func test_loadFeedCompletion_rendersSuccessfullyLoadedFeed() {
         let image0 = makeImage(description: "a description", location: "a location")
         let image1 = makeImage(description: nil, location: "another location")
@@ -190,6 +192,28 @@ class FeedUIIntegrationTests: XCTestCase {
         loader.completeFeedLoadingWithError(at: 1)
         
         assertThat(sut, isRendering: [image0])
+    }
+    
+    func test_loadingMoreIndicator_isVisibleWhileLoadingMored() {
+        let (sut, loader) = makeSUT()
+        
+        sut.simulateAppearance()
+        XCTAssertFalse(sut.isShowingLoadMoreFeedIndicator)
+        
+        loader.completeFeedLoading(at: 0)
+        XCTAssertFalse(sut.isShowingLoadMoreFeedIndicator)
+        
+        sut.simulateLoadMoreFeedActions()
+         XCTAssertTrue(sut.isShowingLoadMoreFeedIndicator)
+        
+        loader.completeLoadMore(at: 0)
+        XCTAssertFalse(sut.isShowingLoadMoreFeedIndicator)
+        
+        sut.simulateLoadMoreFeedActions()
+         XCTAssertTrue(sut.isShowingLoadMoreFeedIndicator)
+        
+        loader.completeLoadMoreWithError(at: 1)
+        XCTAssertFalse(sut.isShowingLoadMoreFeedIndicator)
     }
     
     func test_loadingFeedIndicator_isVisibleWhileLoadingFeed() {
