@@ -45,6 +45,10 @@ extension ListViewController {
     var errorMessage: String? {
         return errorView.message
     }
+    
+    var loadMoreFeedErrorMessage: String? {
+        loadMoreFeedCell()?.message
+    }
 
     func numberOfRows(in section: Int) -> Int {
         tableView.numberOfSections > section ? tableView.numberOfRows(inSection: section) : 0

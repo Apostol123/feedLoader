@@ -19,9 +19,15 @@ final class SharedLocalizationTests: XCTestCase {
 
     // MARK: - Helpers
     
-    private class DummyView: ResourceView {
-        func display(_ viewModel: Any) {}
-    }
+    
+}
+
+class DummyView: ResourceView {
+    func display(_ viewModel: Any) {}
+}
+
+var loadError: String {
+    LoadResourcePresenter<Any, DummyView>.loadError
 }
 
 extension XCTestCase {
