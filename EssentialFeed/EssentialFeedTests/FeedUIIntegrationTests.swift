@@ -8,7 +8,7 @@
 import UIKit
 import XCTest
 import FeedLoader
-@testable import EssentialFeediOS
+import EssentialFeediOS
 @testable import EssentialFeed
 
 
