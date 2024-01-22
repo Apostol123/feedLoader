@@ -90,7 +90,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func makePage(items: [FeedImage], last: FeedImage?) -> Paginated<FeedImage> {
         Paginated(items: items, loadMorePublisher: last.map({ last in
-            { self.makeRemoteLoadMoreLoader(items: items, last: last) }
+            { self.makeRemoteLoadMoreLoader(last: last) }
         }))
     }
     
@@ -103,11 +103,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .eraseToAnyPublisher()
     }
     
-    private func makeRemoteLoadMoreLoader(items: [FeedImage], last: FeedImage?) -> AnyPublisher<Paginated<FeedImage>, Error> {
+    private func makeRemoteLoadMoreLoader(last: FeedImage?) -> AnyPublisher<Paginated<FeedImage>, Error> {
         makeRemoteLoader(after: last)
-            .map { newItems in
-                let allItems = items + newItems
-                return (allItems, newItems.last)
+            .zip(localFeedLoader.loadPublisher())
+            .map { (newItems, cachedItems) in
+                (cachedItems + newItems, newItems.last)
             }.map(makePage)
             .caching(to: localFeedLoader)
             .eraseToAnyPublisher()
