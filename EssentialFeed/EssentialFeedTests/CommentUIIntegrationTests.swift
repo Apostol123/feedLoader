@@ -34,18 +34,18 @@ final class CommentUIIntegrationTests: XCTestCase {
         
     }
     
-    func test_loadCommentsactions_requestCommentsromLoader() {
+    func test_loadCommentsactions_requestCommentsFromLoader() {
         let (sut, loader) = makeCommentsSUT()
         XCTAssertEqual(loader.loadCommentsCallCount, 0)
         
         sut.simulateAppearance()
         XCTAssertEqual(loader.loadCommentsCallCount, 1)
         
-        sut.simulateAppearance()
-        
+        loader.completeCommentsLoading(at: 0)
         sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadCommentsCallCount, 2)
         
+        loader.completeCommentsLoading(at: 1)
         sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadCommentsCallCount, 3)
     }
@@ -195,6 +195,7 @@ class CommentsLoaderSpy {
 
     func completeCommentsLoading(with comments: [ImageComments] = [], at index: Int = 0) {
         requests[index].send(comments)
+        requests[index].send(completion: .finished)
     }
 
     func completeCommentsLoadingWithError(at index: Int = 0) {
