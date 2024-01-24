@@ -122,5 +122,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2BFE0422-9E6C-46A1-A492-320DFE7D97C7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FeedLoaderCacheIntegrationTests/FeedImageDataStoreTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "expect(_:toCompleteRetrievalWith:for:file:line:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2BFE0422-9E6C-46A1-A492-320DFE7D97C7 - 9ce4457f876589af"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FeedLoaderCacheIntegrationTests.FeedImageDataStoreTests.expect(_: FeedLoader.CoreDataFeedStore, toCompleteRetrievalWith: Swift.Result&lt;Swift.Optional&lt;Foundation.Data&gt;, Swift.Error&gt;, for: Foundation.URL, file: Swift.StaticString, line: Swift.UInt) -&gt; ()"
+                  moduleName = "FeedLoaderCacheIntegrationTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/FeedLoaderCacheIntegrationTests/FeedImageDataStoreTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "456">
+               </Location>
+               <Location
+                  uuid = "2BFE0422-9E6C-46A1-A492-320DFE7D97C7 - c673cb7bfaf7287"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;Foundation.Data&gt;, Swift.Error&gt;) -&gt; () in FeedLoaderCacheIntegrationTests.FeedImageDataStoreTests.expect(_: FeedLoader.CoreDataFeedStore, toCompleteRetrievalWith: Swift.Result&lt;Swift.Optional&lt;Foundation.Data&gt;, Swift.Error&gt;, for: Foundation.URL, file: Swift.StaticString, line: Swift.UInt) -&gt; ()"
+                  moduleName = "FeedLoaderCacheIntegrationTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex.personal/Documents/developer/FeedLoader/FeedLoaderCacheIntegrationTests/FeedImageDataStoreTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "228">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
