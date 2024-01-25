@@ -9,7 +9,7 @@ import XCTest
 import FeedLoader
 import EssentialFeed
 
-final class RemoteWithLocalFallbackFeedLoaderTests: XCTestCase, FeedLoaderExpectation {
+final class RemoteWithLocalFallbackFeedLoaderTests: XCTestCase, FeedLoaderTestCase {
 
     func test_load_deliversRemoteFeedOnRemoteSuccess() {
         let primaryFeed = uniqueFeed()
@@ -33,7 +33,9 @@ final class RemoteWithLocalFallbackFeedLoaderTests: XCTestCase, FeedLoaderExpect
     }
     
     // MARK: - Helpers
-
+    
+  
+    
     private func makeSUT(primaryResult: FeedLoader.Result, fallbackResult: FeedLoader.Result, file: StaticString = #file, line: UInt = #line) -> FeedLoader {
         let primaryLoader = FeedLoaderStub(result: primaryResult)
         let fallbackLoader = FeedLoaderStub(result: fallbackResult)

@@ -20,18 +20,9 @@
     {
       "parallelizable" : true,
       "target" : {
-        "containerPath" : "container:EssentialFeed.xcodeproj",
+        "containerPath" : "container:EssentialFeed\/EssentialFeed.xcodeproj",
         "identifier" : "CBA28B5E2B03427800D3BD25",
         "name" : "EssentialFeedTests"
-      }
-    },
-    {
-      "enabled" : false,
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:EssentialFeed.xcodeproj",
-        "identifier" : "CBA28B682B03427800D3BD25",
-        "name" : "EssentialFeedUITests"
       }
     }
   ],

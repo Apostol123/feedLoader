@@ -15,42 +15,11 @@ final class FeedPresenterTests: XCTestCase {
         XCTAssertEqual(FeedPresenter.title, localized("FEED_VIEW_TITLE"))
     }
     
-    func test_init_doesNotSendMessagesToView() {
-        let (_, view) = makeSUT()
-        
-        XCTAssertTrue(view.messages.isEmpty, "Expected no view messages")
-    }
-    
-    func test_didStartLoadingFeed_displaysNoErrorMessagesAndStartsLoading() {
-        let (sut, view) = makeSUT()
-        
-        sut.feedDidStarLoadingFeed()
-        XCTAssertEqual(view.messages, [
-            .display(errorMessages: .none),
-            .display(isLoading: true)
-        ])
-    }
-    
-    func test_didFinishLoadingFeed_displaysNoErrorMessagesAndStartsLoading() {
-        let (sut, view) = makeSUT()
+    func test_map_createsViewModel() {
         let feed = uniqueImageFeed().models
         
-        sut.didFinishLoadingFeed(with: feed)
-        XCTAssertEqual(view.messages, [
-            .display(feed: feed),
-            .display(isLoading: false)
-        ])
-    }
-    
-    func test_didFinishLoadingFeedWithError_displaysLocalizedErrorMessageAndStopsLoading() {
-        let (sut, view) = makeSUT()
-        
-        sut.didFinishLoadingFeed(with: anyError())
-        
-        XCTAssertEqual(view.messages,
-                       [ .display(errorMessages: localized("FEED_VIEW_CONNECTION_ERROR")),
-                         .display(isLoading: false)
-                       ])
+        let viewModel = FeedPresenter.map(feed)
+        XCTAssertEqual(viewModel.feed, feed)
     }
     
     //MARK: - Helpers
@@ -64,34 +33,5 @@ final class FeedPresenterTests: XCTestCase {
         }
         
         return value
-    }
-    
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedPresenter, view: ViewSpy) {
-        let view = ViewSpy()
-        let sut = FeedPresenter(errorView: view, feedLoadingView: view, feedView: view)
-        trackForMemoryLeaks(view, file: file, line: line)
-        trackForMemoryLeaks(sut, file: file, line: line)
-        return (sut, view)
-    }
-    
-    private class ViewSpy: FeedErrorView, FeedLoadingView, FeedView {
-        enum Messages: Hashable {
-            case display(errorMessages: String?)
-            case display(isLoading: Bool)
-            case display(feed: [FeedImage])
-        }
-        var messages = Set<Messages>()
-        
-        func display(_ viewModel: FeedErrorViewModel) {
-            messages.insert(.display(errorMessages: viewModel.message))
-        }
-        
-        func display(_ viewModel: FeedLoadingViewModel) {
-            messages.insert(.display(isLoading: viewModel.isLoading))
-        }
-        
-        func display(_ viewModel: FeedViewModel) {
-            messages.insert(.display(feed: viewModel.feed))
-        }
     }
 }

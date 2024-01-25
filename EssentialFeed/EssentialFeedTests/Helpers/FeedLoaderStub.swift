@@ -5,7 +5,6 @@
 //  Created by Alex.personal on 22/11/23.
 //
 
-import Foundation
 import FeedLoader
 
 class FeedLoaderStub: FeedLoader {
