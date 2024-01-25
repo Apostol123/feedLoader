@@ -100,7 +100,7 @@ final class EssentialFeedUIAcceptanceTests: XCTestCase {
         httpClient: HTTPClientStub = .offline,
         store: InMemoryFeedStore = .empty
     ) -> ListViewController {
-        let sut = SceneDelegate(httpClient: httpClient, store: store)
+        let sut = SceneDelegate(httpClient: httpClient, store: store, schedular: .inmediateOnMainQueue)
         sut.window = UIWindow()
         sut.configureWindow()
 
@@ -111,7 +111,7 @@ final class EssentialFeedUIAcceptanceTests: XCTestCase {
     }
 
     private func enterBackground(with store: InMemoryFeedStore) throws {
-        let sut = SceneDelegate(httpClient: HTTPClientStub.offline, store: store)
+        let sut = SceneDelegate(httpClient: HTTPClientStub.offline, store: store, schedular: .inmediateOnMainQueue)
 
         let sceneClass = NSClassFromString("UIScene") as? NSObject.Type
         let scene = try XCTUnwrap(sceneClass?.init() as? UIScene)

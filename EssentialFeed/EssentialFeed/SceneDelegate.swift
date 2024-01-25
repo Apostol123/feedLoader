@@ -16,7 +16,11 @@ import EssentialFeedAPI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
-    private lazy var logger = Logger(subsystem: "com.essentialdeveloper.EssentaiAppCaseStudy", category: "main")
+    private lazy var schedular: AnyDispatchQueScheduler = DispatchQueue(
+        label: "com.essentialdeveloper.infra.que",
+        qos: .userInteractive,
+        attributes: .concurrent
+    ).eraseToAnyScheduler()
 
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
@@ -30,7 +34,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     .appendingPathComponent("feed-store.sqlite"))
         } catch {
             assertionFailure("Failed to instantiate CoreData with error: \(error.localizedDescription)")
-            logger.fault("Failed to instantiate CoreData with error: \(error.localizedDescription)")
             return NullStore()
         }
     }()
@@ -47,10 +50,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             imageLoader: makeLocalImageLoaderWithRemoteFallback,
             selection: showComments))
 
-    convenience init(httpClient: HTTPClient, store: FeedStore & FeedImageDataStore) {
+    convenience init(httpClient: HTTPClient, store: FeedStore & FeedImageDataStore, schedular: AnyDispatchQueScheduler) {
         self.init()
         self.httpClient = httpClient
         self.store = store
+        self.schedular = schedular
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -127,12 +131,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         return localImageLoader
             .load(from: url)
-            .fallback(to: { [httpClient] in
+            .fallback(to: { [httpClient, schedular] in
                 httpClient
                     .getPublisher(url: url)
                     .tryMap(FeedImageDataMapper.map)
                     .caching(to: localImageLoader, using: url)
+                    .subscribe(on: schedular)
+                    .eraseToAnyPublisher()
             })
+            .subscribe(on: schedular)
+            .eraseToAnyPublisher()
     }
 }
 
