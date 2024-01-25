@@ -9,6 +9,14 @@ import Foundation
 import FeedLoader
 
 class NullStore: FeedStore & FeedImageDataStore {
+    func retrieve(dataForURL url: URL) throws -> Data? {
+        return .none
+    }
+    
+    func insert(_ data: Data, for url: URL) throws {
+        
+    }
+    
     func deleteCachedFeed(completion: @escaping DeletionCompletion) {
         completion(.success(()))
     }
@@ -23,9 +31,5 @@ class NullStore: FeedStore & FeedImageDataStore {
     
     func insert(_ data: Data, for url: URL, completion: @escaping (InsertionResult) -> Void) {
         completion(.success(()))
-    }
-    
-    func retrieve(dataForURL url: URL, completion: @escaping (RetrievalResult) -> Void) {
-        completion(.success(.none))
     }
 }
