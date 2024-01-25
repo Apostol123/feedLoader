@@ -30,7 +30,7 @@ extension LocalFeedImageDataLoader: FeedImageDataCache {
     }
 }
 
-extension LocalFeedImageDataLoader: FeedImageDataLoader {
+extension LocalFeedImageDataLoader: LocalFeedImageDataLoaderProtocol {
     
     public enum LoadError: Error {
         case failed
